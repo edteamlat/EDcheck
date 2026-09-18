@@ -1,3 +1,4 @@
+import type { ContextObject } from "../../context/types/context-object.ts";
 import type { Thresholds } from "../../policy/types/thresholds.ts";
 import type { Severity } from "./severity.ts";
 
@@ -10,4 +11,5 @@ export type SemanticRule = {
   readonly thresholds?: Partial<Thresholds>;
   readonly message?: string;
   readonly id?: string;
+  readonly context?: ContextObject;
 };

@@ -8,3 +8,5 @@ export { isBrowserEnvironment } from "./is-browser-environment.ts";
 export { isPathPrefix } from "./is-path-prefix.ts";
 export { parsePath } from "./parse-path.ts";
 export { setAtPath } from "./set-at-path.ts";
+export { stableStringify } from "./stable-stringify.ts";
+export { throwConfigError } from "./throw-config-error.ts";

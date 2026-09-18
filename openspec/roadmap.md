@@ -36,8 +36,8 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
 
 ### [~] 2. `context-inheritance`
 
-- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/context-inheritance/`.
-  Apply after `bootstrap-mvp` is archived.
+- **Status:** applied (2026-09-17) — implementation complete in `src/`. Next:
+  `/opsx:archive context-inheritance` after `bootstrap-mvp` is archived.
 - **Kickoff:** `/opsx:propose context-inheritance`
 - **Delivers:** string or object context, `notes[]`, precedence instance → schema → node → rule,
   reserved keys, per-rule state minimization (send only what the rule needs).

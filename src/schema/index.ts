@@ -1,4 +1,5 @@
 export { classifyNode } from "./classify-node.ts";
+export { isReservedPath } from "./is-reserved-path.ts";
 export { collectInvalidPrefixes } from "./collect-invalid-prefixes.ts";
 export { isPrimitiveKind } from "./is-primitive-kind.ts";
 export { objectShape } from "./object-shape.ts";

@@ -6,6 +6,7 @@ import { formatPath } from "../shared/format-path.ts";
 import { classifyNode } from "./classify-node.ts";
 import { isPrimitiveKind } from "./is-primitive-kind.ts";
 import { objectShape } from "./object-shape.ts";
+import type { ResolveNodeOptions } from "./types/resolve-node-options.ts";
 import type { ResolvedNode } from "./types/resolved-node.ts";
 import { unwrapNode } from "./unwrap-node.ts";
 
@@ -21,7 +22,11 @@ function unsupported(dottedPath: string, kind: string): never {
   );
 }
 
-export function resolveNode(schema: ZodType, dottedPath: string): ResolvedNode {
+export function resolveNode(
+  schema: ZodType,
+  dottedPath: string,
+  options?: ResolveNodeOptions,
+): ResolvedNode {
   const path = dottedPath.split(".");
   let current = unwrapNode(schema);
   for (let index = 0; index < path.length; index += 1) {
@@ -50,7 +55,7 @@ export function resolveNode(schema: ZodType, dottedPath: string): ResolvedNode {
       if (kind === "array") {
         unsupported(dottedPath, "array");
       }
-      if (!isPrimitiveKind(kind)) {
+      if (!isPrimitiveKind(kind) && !(options?.allowObject === true && kind === "object")) {
         unsupported(dottedPath, kind);
       }
       return {

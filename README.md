@@ -100,6 +100,49 @@ If the provider is down, times out, or returns a malformed response:
 createEDcheck({ provider, policy: "closed", timeoutMs: 8000 });
 ```
 
+## Context
+
+Context is meaning for Jev, not a prompt. It travels only in `state.context` and never in
+`instructions` or `criteria`.
+
+A context is a non-empty string or an object. A string becomes `{ notes: [that string] }`. The
+object may use reserved keys `domain`, `purpose`, `audience`, `locale`, `channel` (strings),
+`notes: string[]`, and any open keys your app needs (`tenant`, `plan`, …).
+
+Attach it at four levels. More specific wins; `notes` accumulate:
+
+```ts
+const edcheck = createEDcheck({
+  provider,
+  context: { domain: "software services", locale: "es-BO" },
+});
+
+const Project = edcheck.define(schema, {
+  context: { purpose: "create_project", audience: "client" },
+  nodeContext: {
+    address: { channel: "web" },
+  },
+  rules: {
+    fullName: semantic({
+      intent: "A plausible full name for a real person",
+      context: "As written on the ID",
+    }),
+  },
+});
+```
+
+Merge rules:
+
+- Levels apply in order: instance → schema → node ancestors (root first) → rule.
+- Structured keys shallow-merge; the most specific level wins.
+- `notes` concatenate in that same order and never override a structured key.
+- `{}` is a no-op: `state` has no `context` key.
+
+Identical effective context stays **one request**. Distinct rule (or node) contexts split into
+one request per group, each with only that group's fields. `locale` is data for the model, not a
+filter — it does not change instructions, criteria, or which rules run. The top-level state key
+`context` is reserved; a rule or `nodeContext` path starting with `context` is rejected.
+
 ## Cancellation
 
 Every `safeParse` accepts `signal` and `timeoutMs`. A cancelled parse rejects with

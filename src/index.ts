@@ -15,10 +15,12 @@ export type {
   EDcheck,
   EDcheckOptions,
   FieldPath,
+  NodePath,
   ParseOptions,
   SemanticSchema,
   SemanticSchemaOptions,
 } from "./api/index.ts";
+export type { Context, ContextObject } from "./context/index.ts";
 export type { FailurePolicy, Outcome, Thresholds } from "./policy/index.ts";
 export type { MockProvider } from "./providers/mock/types/mock-provider.ts";
 export type { MockProviderOptions } from "./providers/mock/types/mock-provider-options.ts";

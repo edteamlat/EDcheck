@@ -1,3 +1,4 @@
+import type { Context } from "../../context/types/context.ts";
 import type { FailurePolicy } from "../../policy/types/failure-policy.ts";
 import type { Thresholds } from "../../policy/types/thresholds.ts";
 import type { SemanticProvider } from "../../providers/types/semantic-provider.ts";
@@ -7,4 +8,5 @@ export type EDcheckOptions = {
   timeoutMs?: number;
   policy?: FailurePolicy;
   thresholds?: Partial<Thresholds>;
+  context?: Context;
 };

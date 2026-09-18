@@ -1,0 +1,44 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`context in state > Empty effective context leaves the bootstrap payload unchanged 1`] = `
+{
+  "questions": {
+    "bio": {
+      "criteria": {
+        "false": "Meaningless, irrelevant or clearly unrelated text",
+        "true": "Describes the person's professional background coherently",
+      },
+      "instructions": "Does \`bio\` fit the following description? Meaningful professional biography",
+      "type": "noul",
+    },
+    "fullName": {
+      "instructions": "Does \`fullName\` fit the following description? A plausible full name for a real person",
+      "type": "noul",
+    },
+  },
+  "state": {
+    "bio": "Ingeniera de software",
+    "fullName": "Ana Pérez",
+  },
+}
+`;
+
+exports[`context in state > Snapshot with the PDR project context 1`] = `
+{
+  "questions": {
+    "fullName": {
+      "instructions": "Does \`fullName\` fit the following description? A plausible full name for a real person",
+      "type": "noul",
+    },
+  },
+  "state": {
+    "context": {
+      "audience": "client",
+      "domain": "software services",
+      "locale": "es-BO",
+      "purpose": "create_project",
+    },
+    "fullName": "Ana Pérez",
+  },
+}
+`;

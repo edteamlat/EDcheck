@@ -1,11 +1,18 @@
 import type { ZodObject } from "zod";
 
+import { normalizeContext } from "../context/normalize-context.ts";
+import type { ContextObject } from "../context/types/context-object.ts";
 import { EDcheckConfigError } from "../errors/edcheck-config-error.ts";
 import { resolveThresholds } from "../policy/resolve-thresholds.ts";
 import type { FailurePolicy } from "../policy/types/failure-policy.ts";
 import type { SemanticRule } from "../rules/types/semantic-rule.ts";
+import { isReservedPath } from "../schema/is-reserved-path.ts";
 import { resolveNode } from "../schema/resolve-node.ts";
+import { parsePath } from "../shared/parse-path.ts";
 
+import { ancestorContexts } from "./ancestor-contexts.ts";
+import { collectNodeContexts } from "./collect-node-contexts.ts";
+import { resolveEffectiveContext } from "./resolve-effective-context.ts";
 import { runSafeParse } from "./run-safe-parse.ts";
 import type { BoundRule } from "./types/bound-rule.ts";
 import type { InstanceConfig } from "./types/instance-config.ts";
@@ -33,12 +40,23 @@ export function defineSemanticSchema<S extends ZodObject>(
   }
   resolveThresholds({ instance: instance.thresholds, schema: options.thresholds });
 
+  const schemaContext: ContextObject | undefined =
+    options.context === undefined ? undefined : normalizeContext(options.context);
+  const nodeContexts = collectNodeContexts(schema, options.nodeContext);
+
   const boundRules: BoundRule[] = [];
   const seenIds = new Set<string>();
   const entries = Object.entries(options.rules) as Array<[string, SemanticRule | undefined]>;
   for (const [dottedPath, rule] of entries) {
     if (rule === undefined) {
       continue;
+    }
+    if (isReservedPath(parsePath(dottedPath))) {
+      throw new EDcheckConfigError(
+        `Path "${dottedPath}" collides with the reserved state key "context".`,
+        "reserved_path",
+        { path: dottedPath },
+      );
     }
     const resolved = resolveNode(schema, dottedPath);
     const ruleId = rule.id ?? resolved.dottedPath;
@@ -55,6 +73,15 @@ export function defineSemanticSchema<S extends ZodObject>(
       schema: options.thresholds,
       rule: rule.thresholds,
     });
+    const levels: ContextObject[] = [instance.context];
+    if (schemaContext !== undefined) {
+      levels.push(schemaContext);
+    }
+    levels.push(...ancestorContexts(resolved.path, nodeContexts));
+    if (rule.context !== undefined) {
+      levels.push(rule.context);
+    }
+    const { context, groupKey } = resolveEffectiveContext(levels);
     boundRules.push({
       dottedPath: resolved.dottedPath,
       path: resolved.path,
@@ -62,6 +89,8 @@ export function defineSemanticSchema<S extends ZodObject>(
       ruleId,
       node: resolved.node,
       thresholds,
+      effectiveContext: context,
+      groupKey,
     });
   }
 

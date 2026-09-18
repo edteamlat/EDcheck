@@ -1,3 +1,4 @@
+import { normalizeContext } from "../context/normalize-context.ts";
 import { EDcheckConfigError } from "../errors/edcheck-config-error.ts";
 import { validateThresholds } from "../policy/validate-thresholds.ts";
 
@@ -51,6 +52,11 @@ export function normalizeRule(options: SemanticRuleOptions): SemanticRule {
   }
   if (options.id !== undefined) {
     (rule as { id: string }).id = options.id;
+  }
+  if (options.context !== undefined) {
+    (rule as { context: ReturnType<typeof normalizeContext> }).context = normalizeContext(
+      options.context,
+    );
   }
   return Object.freeze(rule);
 }
