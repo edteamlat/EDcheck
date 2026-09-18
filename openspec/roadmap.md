@@ -127,9 +127,12 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
   typed cancellation error.
 - **Depends on:** 1
 
-### [ ] 8. `evaluation-harness`
+### [~] 8. `evaluation-harness`
 
-- **Status:** not started
+- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/evaluation-harness/`.
+  Unified fixture format with tags, binding registry, one eval runner, committed baseline and a
+  deterministic threshold derivation (`DEFAULT_THRESHOLDS` must equal the baseline). Apply after
+  `cross-field-rules` and `score-rules` are archived; the calibration task needs a real key once.
 - **Kickoff:** `/opsx:propose evaluation-harness`
 - **Delivers:** `es` / `en` fixtures for the PDR example rules (positive, negative, ambiguous),
   `test/eval/` against real Jev with tolerance bands, calibrated default thresholds.
