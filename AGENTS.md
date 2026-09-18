@@ -5,7 +5,8 @@
 1. Read `openspec/constitution.md`. It is normative. §4 (decisions) is not reopened in a change.
 2. Read `openspec/config.yaml` and the specs in `openspec/specs/`.
 3. All work lives in an OpenSpec change: `/opsx:propose` → `/opsx:apply` → `/opsx:archive`.
-   No change, no code.
+   No change, no code. The change list and its status: `openspec/roadmap.md`. Update it when a
+   change is proposed or archived.
 4. Open questions are in constitution §13. They are closed in the change's `design.md`.
 
 ## What it is and what it is not

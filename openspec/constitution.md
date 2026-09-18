@@ -291,7 +291,7 @@ Normative consequences:
 
 ```
 EDcheck/
-  openspec/          constitution · config · specs (current truth) · changes (work)
+  openspec/          constitution · config · roadmap (status) · specs (current truth) · changes (work)
   docs/pdr-v0.1.md   original PDR, frozen
   src/               library, single public entry
   test/              unit (mock) · eval (real Jev, optional) · fixtures
@@ -416,6 +416,7 @@ Deliberately open. Resolved in `design.md`, not here.
 
 A plan, not a contract. Each change follows §12 and §12.1: its `specs/` scenarios become red
 tests before `src/` code. Order reflects dependencies; independent changes may run in any order.
+Status is tracked in `openspec/roadmap.md`; this section holds the rationale.
 
 | #   | Change                | Delivers                                                                                                                                                                                                                                                                                                                                                                      | Closes §13 | Specs                                                                                     |
 | --- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------- |
