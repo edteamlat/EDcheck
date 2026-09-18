@@ -34,9 +34,10 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
   empty / whitespace / ≥ 50k chars / emoji / RTL strings; browser environment → explicit error.
 - **Depends on:** —
 
-### [ ] 2. `context-inheritance`
+### [~] 2. `context-inheritance`
 
-- **Status:** not started
+- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/context-inheritance/`.
+  Apply after `bootstrap-mvp` is archived.
 - **Kickoff:** `/opsx:propose context-inheritance`
 - **Delivers:** string or object context, `notes[]`, precedence instance → schema → node → rule,
   reserved keys, per-rule state minimization (send only what the rule needs).
