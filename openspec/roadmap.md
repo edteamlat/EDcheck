@@ -78,9 +78,11 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
   values explicitly (decided in design); abort in flight.
 - **Depends on:** 2
 
-### [ ] 5. `score-rules`
+### [~] 5. `score-rules`
 
-- **Status:** not started
+- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/score-rules/`. Also adds a
+  small `result` delta (`Issue.level`, `Issue.minConfidence`) and a `provider` delta (contract
+  union). Apply after `bootstrap-mvp` is archived.
 - **Kickoff:** `/opsx:propose score-rules`
 - **Delivers:** `kind: "score"` rules with ordered `levels`, level → outcome mapping, low
   `confidence` → warning.
