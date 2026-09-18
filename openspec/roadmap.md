@@ -50,9 +50,10 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
 - **Note:** may be folded into `bootstrap-mvp` if change 1's design shows the compiler cannot
   build `state` without it. That is a legitimate edit of this file and constitution §15.
 
-### [ ] 3. `cross-field-rules`
+### [~] 3. `cross-field-rules`
 
-- **Status:** not started
+- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/cross-field-rules/`.
+  Independent of change 2; apply after `bootstrap-mvp` is archived.
 - **Kickoff:** `/opsx:propose cross-field-rules`
 - **Delivers:** rules attached to the containing object with declared `paths`, state restricted
   to those paths, issues attributed to every declared path, backtick field references in
