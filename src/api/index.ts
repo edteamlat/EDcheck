@@ -1,9 +1,14 @@
 export { createEDcheck } from "./create-edcheck.ts";
 export type { EDcheck } from "./types/edcheck.ts";
+export type { EDcheckHooks } from "./types/edcheck-hooks.ts";
 export type { EDcheckOptions } from "./types/edcheck-options.ts";
 export type { CrossFieldBinding } from "./types/cross-field-binding.ts";
 export type { FieldPath } from "./types/field-path.ts";
 export type { NodePath } from "./types/node-path.ts";
 export type { ParseOptions } from "./types/parse-options.ts";
+export type { ProviderErrorEvent } from "./types/provider-error-event.ts";
+export type { ProviderErrorKind } from "./types/provider-error-kind.ts";
+export type { ProviderRequestEvent } from "./types/provider-request-event.ts";
+export type { ProviderResponseEvent } from "./types/provider-response-event.ts";
 export type { SemanticSchema } from "./types/semantic-schema.ts";
 export type { SemanticSchemaOptions } from "./types/semantic-schema-options.ts";

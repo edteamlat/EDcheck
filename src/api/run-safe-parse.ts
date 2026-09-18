@@ -1,7 +1,7 @@
 import type { output, ZodObject } from "zod";
 
-import { compileRequest } from "../compiler/compile-request.ts";
 import { planGroups } from "../compiler/plan-groups.ts";
+import { EDcheckAbortError } from "../errors/edcheck-abort-error.ts";
 import { EDcheckProviderError } from "../errors/edcheck-provider-error.ts";
 import type { FailurePolicy } from "../policy/types/failure-policy.ts";
 import type { SemanticProvider } from "../providers/types/semantic-provider.ts";
@@ -12,15 +12,16 @@ import type { SemanticResult } from "../result/types/semantic-result.ts";
 import { collectInvalidPrefixes } from "../schema/collect-invalid-prefixes.ts";
 import { assertServerEnvironment } from "../shared/assert-server-environment.ts";
 import { combineSignals } from "../shared/combine-signals.ts";
+import { createId } from "../shared/create-id.ts";
 
-import { assertCompleteResponse } from "./assert-complete-response.ts";
 import { collectExecutableCrossFields } from "./collect-executable-cross-fields.ts";
 import { collectExecutableRules } from "./collect-executable-rules.ts";
 import { isTimeoutReason } from "./is-timeout-reason.ts";
-import { mapSemanticIssues } from "./map-semantic-issues.ts";
+import { runProviderRequest } from "./run-provider-request.ts";
 import { toAbortError } from "./to-abort-error.ts";
 import type { BoundCrossField } from "./types/bound-cross-field.ts";
 import type { BoundRule } from "./types/bound-rule.ts";
+import type { EDcheckHooks } from "./types/edcheck-hooks.ts";
 import { unavailableForRules } from "./unavailable-for-rules.ts";
 
 export async function runSafeParse<S extends ZodObject>(input: {
@@ -31,6 +32,7 @@ export async function runSafeParse<S extends ZodObject>(input: {
   provider: SemanticProvider;
   timeoutMs: number;
   policy: FailurePolicy;
+  hooks: EDcheckHooks;
   signal?: AbortSignal | undefined;
 }): Promise<SemanticResult<output<S>>> {
   assertServerEnvironment();
@@ -64,17 +66,31 @@ export async function runSafeParse<S extends ZodObject>(input: {
   const groups = planGroups(executable, executableCross);
   const signals = input.signal === undefined ? [] : [input.signal];
   const combined = combineSignals(signals, { timeoutMs: input.timeoutMs });
+  const parseId = createId();
+  let cachedAbort: EDcheckAbortError | undefined;
+  const abortError = (): EDcheckAbortError => {
+    cachedAbort ??= toAbortError(input.signal?.reason);
+    return cachedAbort;
+  };
   try {
     const settled = await Promise.allSettled(
-      groups.map(async (group) => {
-        const request = compileRequest(group);
-        const response = await input.provider.evaluate(request, { signal: combined.signal });
-        assertCompleteResponse(response, request.questions);
-        return mapSemanticIssues(group.rules, response, group.crossField);
-      }),
+      groups.map((group, requestIndex) =>
+        runProviderRequest({
+          group,
+          provider: input.provider,
+          signal: combined.signal,
+          hooks: input.hooks,
+          parseId,
+          requestIndex,
+          requestCount: groups.length,
+          entry: "object",
+          callerAborted: () => input.signal?.aborted === true,
+          abortError,
+        }),
+      ),
     );
     if (input.signal?.aborted) {
-      throw toAbortError(input.signal.reason);
+      throw abortError();
     }
     const semanticIssues: Issue[] = [];
     for (const [index, result] of settled.entries()) {
@@ -84,7 +100,10 @@ export async function runSafeParse<S extends ZodObject>(input: {
       }
       const error = result.reason;
       if (input.signal?.aborted) {
-        throw toAbortError(input.signal.reason);
+        throw abortError();
+      }
+      if (error instanceof EDcheckAbortError) {
+        throw error;
       }
       if (error instanceof EDcheckProviderError || isTimeoutReason(error)) {
         const group = groups[index];

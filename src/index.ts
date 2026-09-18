@@ -17,10 +17,15 @@ export { semantic } from "./rules/semantic.ts";
 export type {
   CrossFieldBinding,
   EDcheck,
+  EDcheckHooks,
   EDcheckOptions,
   FieldPath,
   NodePath,
   ParseOptions,
+  ProviderErrorEvent,
+  ProviderErrorKind,
+  ProviderRequestEvent,
+  ProviderResponseEvent,
   SemanticSchema,
   SemanticSchemaOptions,
 } from "./api/index.ts";

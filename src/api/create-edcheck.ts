@@ -10,6 +10,7 @@ import { defineSemanticSchema } from "./define-semantic-schema.ts";
 import type { EDcheck } from "./types/edcheck.ts";
 import type { EDcheckOptions } from "./types/edcheck-options.ts";
 import type { InstanceConfig } from "./types/instance-config.ts";
+import { validateHooks } from "./validate-hooks.ts";
 
 const POLICIES = new Set<FailurePolicy>(["open", "closed"]);
 
@@ -43,6 +44,7 @@ function validateOptions(options: EDcheckOptions): InstanceConfig {
     thresholds: options.thresholds ?? {},
     ...(options.minConfidence === undefined ? {} : { minConfidence: options.minConfidence }),
     context: options.context === undefined ? {} : normalizeContext(options.context),
+    hooks: validateHooks(options.hooks),
   };
 }
 

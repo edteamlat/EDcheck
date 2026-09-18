@@ -230,6 +230,51 @@ const viaEnv = createEDcheck({
 Default preference is `"typesafe"` so a dual-key setup stays on the route that needs no optional
 peer. Empty strings count as unset.
 
+## Observability
+
+`createEDcheck({ hooks })` accepts optional `onRequest`, `onResponse` and `onError` callbacks.
+Each fires exactly once per provider request. A parse that makes no request fires nothing. EDcheck
+never writes to stdout, stderr or `console`.
+
+| Field | Meaning |
+| --- | --- |
+| `parseId` | One id per `safeParse` call |
+| `requestId` | One id per provider request (use as a span id) |
+| `requestIndex` / `requestCount` | Group position and how many requests this parse planned |
+| `provider` | `provider.name` |
+| `entry` | `"object"` (or `"node"` when node validation is used) |
+| `ruleIds` | Question ids in this request |
+| `durationMs` | Provider latency for the terminal event |
+| `outcomes` | `pass` / `warning` / `fail` per rule, before severity mapping |
+| `kind` | `"provider"` / `"abort"` / `"unexpected"` on `onError` |
+
+Aggregate a parse by waiting for `requestCount` terminal events that share a `parseId`. OpenTelemetry-style:
+
+```ts
+createEDcheck({
+  provider,
+  hooks: {
+    onRequest: (event) => {
+      tracer.startSpan("edcheck.evaluate", {
+        attributes: { "edcheck.request_id": event.requestId, "edcheck.parse_id": event.parseId },
+      });
+    },
+    onResponse: (event) => {
+      spanFor(event.requestId)?.setAttribute("edcheck.model", event.response.model);
+      spanFor(event.requestId)?.end();
+    },
+    onError: (event) => {
+      spanFor(event.requestId)?.recordException(event.error);
+      spanFor(event.requestId)?.end();
+    },
+  },
+});
+```
+
+Hook failures are swallowed and never logged: test your hooks; EDcheck will not tell you they
+threw. Events carry the same `request` / `response` references the provider saw, including
+`state`. Strip `event.request.state` before export if you need redaction.
+
 ## Testing your app
 
 `mockProvider()` is part of the public API so application tests stay offline:

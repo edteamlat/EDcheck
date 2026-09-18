@@ -3,6 +3,8 @@ import type { FailurePolicy } from "../../policy/types/failure-policy.ts";
 import type { Thresholds } from "../../policy/types/thresholds.ts";
 import type { SemanticProvider } from "../../providers/types/semantic-provider.ts";
 
+import type { EDcheckHooks } from "./edcheck-hooks.ts";
+
 export type EDcheckOptions = {
   provider: SemanticProvider;
   timeoutMs?: number;
@@ -10,4 +12,5 @@ export type EDcheckOptions = {
   thresholds?: Partial<Thresholds>;
   minConfidence?: number;
   context?: Context;
+  hooks?: EDcheckHooks;
 };

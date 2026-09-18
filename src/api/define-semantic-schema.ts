@@ -132,6 +132,7 @@ export function defineSemanticSchema<S extends ZodObject>(
         provider: instance.provider,
         timeoutMs: parseOptions?.timeoutMs ?? instance.timeoutMs,
         policy,
+        hooks: instance.hooks,
         signal: parseOptions?.signal,
       });
     },
