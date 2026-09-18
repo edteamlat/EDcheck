@@ -65,9 +65,12 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
   error at attach time; the compiled state contains only the declared paths.
 - **Depends on:** 1
 
-### [ ] 4. `node-validation`
+### [~] 4. `node-validation`
 
-- **Status:** not started
+- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/node-validation/`. Signature
+  is `SemanticSchema.node(path).safeParse(value, options)`; cross-field rules not fully covered by
+  the node are skipped; no automatic supersession (shared server instance). Apply after
+  `context-inheritance` is archived.
 - **Kickoff:** `/opsx:propose node-validation`
 - **Delivers:** single-field validation (`on blur` style use case) preserving the node's inherited
   context; same result shape as whole-object validation.
