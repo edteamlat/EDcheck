@@ -1,5 +1,5 @@
 {
-  "name": "edcheck",
+  "name": "@edteam/edcheck",
   "version": "0.1.0",
   "description": "Semantic validation for Zod schemas, powered by TypeSafe Jev. Validate meaning, not just structure.",
   "keywords": [

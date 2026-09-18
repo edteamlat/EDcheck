@@ -3,7 +3,7 @@ schema: spec-driven
 # Context injected into EVERY artifact. Full normative detail: openspec/constitution.md
 context: |
   Product: EDcheck — semantic validation for Zod schemas, executed server-side with Jev
-  (TypeSafe AI). Zod validates shape; EDcheck validates meaning. npm package: edcheck.
+  (TypeSafe AI). Zod validates shape; EDcheck validates meaning. npm package: @edteam/edcheck.
 
   Division of responsibilities (constitution §2):
   - Zod 4 (peerDependency): shape, min/max, required, regex, enum, refine. Client and server.

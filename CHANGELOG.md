@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.1.0 — 2026-09-17
 
-First public release. EDcheck binds semantic rules to an existing Zod 4 schema and evaluates
-meaning on the server with TypeSafe Jev.
+First public release of `@edteam/edcheck`. Binds semantic rules to an existing Zod 4 schema and
+evaluates meaning on the server with TypeSafe Jev.
 
 ### Added
 

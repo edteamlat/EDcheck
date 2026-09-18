@@ -25,7 +25,7 @@ and mapped to `pass | warning | fail`.
 Requires Node ≥ 20. Zod is a peer dependency.
 
 ```sh
-yarn add edcheck zod
+yarn add @edteam/edcheck zod
 ```
 
 ## Client: keep the Zod schema
@@ -46,7 +46,7 @@ EDcheck must run on the server (your API route). Calling `createEDcheck` or `saf
 browser throws `EDcheckEnvironmentError`.
 
 ```ts
-import { createEDcheck, semantic, typesafeProvider } from "edcheck";
+import { createEDcheck, semantic, typesafeProvider } from "@edteam/edcheck";
 
 import { User } from "../shared/user";
 
@@ -244,7 +244,7 @@ calls: a shared server instance must not cancel another request's work.
 On Vercel, omit `apiKey` and Gateway resolves OIDC itself:
 
 ```ts
-import { createEDcheck, gatewayProvider, providerFromEnv, semantic } from "edcheck";
+import { createEDcheck, gatewayProvider, providerFromEnv, semantic } from "@edteam/edcheck";
 
 const viaGateway = createEDcheck({
   provider: gatewayProvider(), // AI_GATEWAY_API_KEY or OIDC
@@ -309,7 +309,7 @@ threw. Events carry the same `request` / `response` references the provider saw,
 `mockProvider()` is part of the public API so application tests stay offline:
 
 ```ts
-import { createEDcheck, mockProvider, semantic } from "edcheck";
+import { createEDcheck, mockProvider, semantic } from "@edteam/edcheck";
 
 const provider = mockProvider({ answers: { fullName: 0.12 } });
 const bound = createEDcheck({ provider }).define(User, {

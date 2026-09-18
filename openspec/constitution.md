@@ -6,7 +6,7 @@
 
 **Status:** v1.1 — product contract locked; v1 changes archived; `0.1.0` release
 **Product:** EDcheck — semantic validation for Zod schemas
-**Package:** `edcheck`
+**Package:** `@edteam/edcheck`
 **Next step:** publish `0.1.0` to npm
 
 ---
@@ -45,8 +45,9 @@ EDcheck does **not** re-export, wrap or reimplement Zod primitives. There is no 
 
 `MUST` / `MUST NOT` are normative.
 
-1. **Zod is the foundation, not an internal detail.** Users install `zod` and `edcheck`. The
-   shared Zod schema MUST be importable on the client without pulling in `edcheck` or any provider SDK.
+1. **Zod is the foundation, not an internal detail.** Users install `zod` and `@edteam/edcheck`.
+   The shared Zod schema MUST be importable on the client without pulling in `@edteam/edcheck` or
+   any provider SDK.
 2. **Server only.** There is no browser bundle. Running semantic validation outside Node MUST fail
    with an explicit error pointing to "use your API route".
 3. **Deterministic first.** If Zod rejects a node's shape, EDcheck MUST NOT spend a model call on
