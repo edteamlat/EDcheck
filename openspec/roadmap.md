@@ -13,9 +13,10 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
 
 ## Changes
 
-### [ ] 1. `bootstrap-mvp`
+### [~] 1. `bootstrap-mvp`
 
-- **Status:** not started
+- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/bootstrap-mvp/`. Next:
+  `/opsx:apply bootstrap-mvp`
 - **Kickoff:** `/opsx:propose bootstrap-mvp`
 - **Delivers:** walking skeleton. One Zod object, Noul rules on primitive fields, whole-object
   semantic parse, `SemanticProvider` contract + `mock` and `typesafe` adapters, provisional
@@ -130,7 +131,9 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
 
 ### [ ] 9. `array-rules` (optional)
 
-- **Status:** pending decision in change 1
+- **Status:** deferred — change 1 `design.md` D4 decided arrays are out of v1: a rule on or
+  through a `z.array` is an `EDcheckConfigError` at `define` time; Zod issues on array items still
+  pass through. Reopen only with eval data justifying an item cap.
 - **Kickoff:** `/opsx:propose array-rules`
 - **Delivers:** per-item rules, default item cap, fan-out declaration.
 - **Only if** change 1 decides arrays are in v1 rather than rejected with an explicit error.
