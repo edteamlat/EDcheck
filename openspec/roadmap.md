@@ -112,9 +112,11 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
   `open` / `closed` behavior as the direct adapter.
 - **Depends on:** 1
 
-### [ ] 7. `observability-hooks`
+### [~] 7. `observability-hooks`
 
-- **Status:** not started
+- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/observability-hooks/`.
+  Instance-level `hooks`; events carry `parseId`/`requestId`/`requestCount` for correlation and
+  aggregation; hooks are fire-and-forget and isolated. Apply after `bootstrap-mvp` is archived.
 - **Kickoff:** `/opsx:propose observability-hooks`
 - **Delivers:** `onRequest` / `onResponse` / `onError` callbacks with duration, model, usage
   (tokens, request count) and outcomes.
