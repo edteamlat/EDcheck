@@ -47,6 +47,24 @@ describe("provider import boundaries", () => {
   });
 });
 
+describe("SDK static imports", () => {
+  it("has no static value import of the SDK", async () => {
+    const files = await collectFiles(srcRoot);
+    const forbiddenImport =
+      /^import\s+(?!type\b)[^;]*from\s+["'](ai|ai\/test|@ai-sdk\/gateway)["']/;
+    const violations: string[] = [];
+    for (const file of files) {
+      const source = await readFile(file, "utf8");
+      for (const [index, line] of source.split("\n").entries()) {
+        if (forbiddenImport.test(line)) {
+          violations.push(`${path.relative(srcRoot, file)}:${index + 1}`);
+        }
+      }
+    }
+    expect(violations).toEqual([]);
+  });
+});
+
 describe("context import boundaries", () => {
   it("imports only from src/shared", async () => {
     const files = await collectFiles(contextRoot);

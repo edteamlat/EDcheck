@@ -202,6 +202,34 @@ are out of v1: a declared path on or through `z.array` is rejected at `define`.
 Every `safeParse` accepts `signal` and `timeoutMs`. A cancelled parse rejects with
 `EDcheckAbortError` and never emits a result. Timeout is a provider failure, not a cancellation.
 
+## Providers
+
+| Route | When to use | Install | Auth |
+| --- | --- | --- | --- |
+| `typesafeProvider` | Direct TypeSafe API | none beyond `edcheck` | `TYPESAFE_API_KEY` |
+| `gatewayProvider` | Vercel AI Gateway (billing, OIDC) | `yarn add ai @ai-sdk/gateway` | `AI_GATEWAY_API_KEY` or Vercel OIDC |
+
+`ai` and `@ai-sdk/gateway` are optional peers. They load on the first `evaluate` via a dynamic
+`import()`. A TypeSafe-direct install never pulls them in.
+
+On Vercel, omit `apiKey` and Gateway resolves OIDC itself:
+
+```ts
+import { createEDcheck, gatewayProvider, providerFromEnv, semantic } from "edcheck";
+
+const viaGateway = createEDcheck({
+  provider: gatewayProvider(), // AI_GATEWAY_API_KEY or OIDC
+});
+
+const viaEnv = createEDcheck({
+  provider: providerFromEnv(), // TYPESAFE_API_KEY wins if both are set
+});
+```
+
+`providerFromEnv({ prefer?: "typesafe" | "gateway" })` reads the environment at call time.
+Default preference is `"typesafe"` so a dual-key setup stays on the route that needs no optional
+peer. Empty strings count as unset.
+
 ## Testing your app
 
 `mockProvider()` is part of the public API so application tests stay offline:

@@ -97,9 +97,8 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
 
 ### [~] 6. `gateway-provider`
 
-- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/gateway-provider/`. `ai` and
-  `@ai-sdk/gateway` become optional peers loaded with a dynamic `import()`; adds
-  `providerFromEnv` (precedence: TypeSafe by default). Apply after `bootstrap-mvp` is archived.
+- **Status:** applied (2026-09-17) — implementation complete in `src/`. Next:
+  `/opsx:archive gateway-provider` after `bootstrap-mvp` is archived.
 - **Kickoff:** `/opsx:propose gateway-provider`
 - **Delivers:** Vercel AI Gateway adapter for `typesafe-ai/jev`; normalization of `boolean` →
   noul and `providerMetadata` → confidence; key detection (`TYPESAFE_API_KEY` vs

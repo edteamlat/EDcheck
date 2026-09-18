@@ -9,5 +9,5 @@ export default defineConfig({
   treeshake: true,
   target: "node20",
   platform: "node",
-  external: ["zod"],
+  external: ["zod", "ai", "@ai-sdk/gateway"],
 });

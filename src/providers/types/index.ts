@@ -7,4 +7,6 @@ export type { SemanticProvider } from "./semantic-provider.ts";
 export type { SemanticQuestion } from "./semantic-question.ts";
 export type { SemanticRequest } from "./semantic-request.ts";
 export type { SemanticResponse } from "./semantic-response.ts";
+export type { ProviderFromEnvOptions } from "./provider-from-env-options.ts";
+export type { ProviderPreference } from "./provider-preference.ts";
 export type { SemanticUsage } from "./semantic-usage.ts";

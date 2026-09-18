@@ -1,6 +1,11 @@
 import { EDcheckError } from "./edcheck-error.ts";
 
-export type ProviderErrorCode = "http" | "network" | "timeout" | "malformed_response";
+export type ProviderErrorCode =
+  | "http"
+  | "network"
+  | "timeout"
+  | "malformed_response"
+  | "sdk";
 
 export class EDcheckProviderError extends EDcheckError {
   readonly status?: number;

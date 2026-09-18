@@ -3,15 +3,12 @@ import type { z } from "zod";
 import { EDcheckProviderError } from "../../errors/edcheck-provider-error.ts";
 import type { SemanticAnswer } from "../types/semantic-answer.ts";
 import type { SemanticRequest } from "../types/semantic-request.ts";
+import { isUnitInterval } from "../shared/is-unit-interval.ts";
 import type { SemanticResponse } from "../types/semantic-response.ts";
 
 import type { typesafeResponseSchema } from "./response-schema.ts";
 
 type TypesafeRawResponse = z.output<typeof typesafeResponseSchema>;
-
-function isUnitInterval(value: number): boolean {
-  return Number.isFinite(value) && value >= 0 && value <= 1;
-}
 
 export function mapTypesafeResponse(
   raw: TypesafeRawResponse,

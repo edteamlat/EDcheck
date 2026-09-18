@@ -12,7 +12,9 @@ describe("public surface", () => {
       "EDcheckError",
       "EDcheckProviderError",
       "createEDcheck",
+      "gatewayProvider",
       "mockProvider",
+      "providerFromEnv",
       "semantic",
       "typesafeProvider",
     ]);

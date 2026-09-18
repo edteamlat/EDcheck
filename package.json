@@ -49,12 +49,24 @@
     "spec:validate": "openspec validate --all"
   },
   "peerDependencies": {
+    "@ai-sdk/gateway": ">=4.0.85 <5",
+    "ai": ">=7.0.105 <8",
     "zod": "^4.0.0"
   },
+  "peerDependenciesMeta": {
+    "@ai-sdk/gateway": {
+      "optional": true
+    },
+    "ai": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@ai-sdk/gateway": "^4.0.85",
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.0.0",
     "@vitest/coverage-v8": "^5.0.1",
+    "ai": "^7.0.105",
     "eslint": "^10.10.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.12.0",
