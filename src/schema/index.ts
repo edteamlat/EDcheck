@@ -4,6 +4,7 @@ export { collectInvalidPrefixes } from "./collect-invalid-prefixes.ts";
 export { isPrimitiveKind } from "./is-primitive-kind.ts";
 export { objectShape } from "./object-shape.ts";
 export { resolveNode } from "./resolve-node.ts";
+export { selectRulesUnderPath } from "./select-rules-under-path.ts";
 export type { NodeKind } from "./types/node-kind.ts";
 export type { ResolvedNode } from "./types/resolved-node.ts";
 export { unwrapNode } from "./unwrap-node.ts";

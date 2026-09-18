@@ -1,28 +1,19 @@
 import type { output, ZodObject } from "zod";
 
-import { planGroups } from "../compiler/plan-groups.ts";
-import { EDcheckAbortError } from "../errors/edcheck-abort-error.ts";
-import { EDcheckProviderError } from "../errors/edcheck-provider-error.ts";
 import type { FailurePolicy } from "../policy/types/failure-policy.ts";
 import type { SemanticProvider } from "../providers/types/semantic-provider.ts";
-import { assembleResult } from "../result/assemble-result.ts";
 import { fromZodIssue } from "../result/from-zod-issue.ts";
-import type { Issue } from "../result/types/issue.ts";
 import type { SemanticResult } from "../result/types/semantic-result.ts";
 import { collectInvalidPrefixes } from "../schema/collect-invalid-prefixes.ts";
 import { assertServerEnvironment } from "../shared/assert-server-environment.ts";
-import { combineSignals } from "../shared/combine-signals.ts";
-import { createId } from "../shared/create-id.ts";
 
 import { collectExecutableCrossFields } from "./collect-executable-cross-fields.ts";
 import { collectExecutableRules } from "./collect-executable-rules.ts";
-import { isTimeoutReason } from "./is-timeout-reason.ts";
-import { runProviderRequest } from "./run-provider-request.ts";
+import { runRules } from "./run-rules.ts";
 import { toAbortError } from "./to-abort-error.ts";
 import type { BoundCrossField } from "./types/bound-cross-field.ts";
 import type { BoundRule } from "./types/bound-rule.ts";
 import type { EDcheckHooks } from "./types/edcheck-hooks.ts";
-import { unavailableForRules } from "./unavailable-for-rules.ts";
 
 export async function runSafeParse<S extends ZodObject>(input: {
   schema: S;
@@ -44,80 +35,28 @@ export async function runSafeParse<S extends ZodObject>(input: {
   const zodIssues = parsed.success ? [] : parsed.error.issues.map(fromZodIssue);
   const shapeData = parsed.success ? parsed.data : undefined;
   const invalidPrefixes = parsed.success ? [] : collectInvalidPrefixes(parsed.error.issues);
-  const executable = collectExecutableRules(
-    input.boundRules,
-    input.data,
-    shapeData,
-    parsed.success,
-    invalidPrefixes,
-  );
-  const executableCross = collectExecutableCrossFields(
-    input.boundCrossFields ?? [],
-    input.data,
-    shapeData,
-    parsed.success,
-    invalidPrefixes,
-  );
-
-  if (executable.length === 0 && executableCross.length === 0) {
-    return assembleResult(shapeData, zodIssues, []);
-  }
-
-  const groups = planGroups(executable, executableCross);
-  const signals = input.signal === undefined ? [] : [input.signal];
-  const combined = combineSignals(signals, { timeoutMs: input.timeoutMs });
-  const parseId = createId();
-  let cachedAbort: EDcheckAbortError | undefined;
-  const abortError = (): EDcheckAbortError => {
-    cachedAbort ??= toAbortError(input.signal?.reason);
-    return cachedAbort;
-  };
-  try {
-    const settled = await Promise.allSettled(
-      groups.map((group, requestIndex) =>
-        runProviderRequest({
-          group,
-          provider: input.provider,
-          signal: combined.signal,
-          hooks: input.hooks,
-          parseId,
-          requestIndex,
-          requestCount: groups.length,
-          entry: "object",
-          callerAborted: () => input.signal?.aborted === true,
-          abortError,
-        }),
-      ),
-    );
-    if (input.signal?.aborted) {
-      throw abortError();
-    }
-    const semanticIssues: Issue[] = [];
-    for (const [index, result] of settled.entries()) {
-      if (result.status === "fulfilled") {
-        semanticIssues.push(...result.value);
-        continue;
-      }
-      const error = result.reason;
-      if (input.signal?.aborted) {
-        throw abortError();
-      }
-      if (error instanceof EDcheckAbortError) {
-        throw error;
-      }
-      if (error instanceof EDcheckProviderError || isTimeoutReason(error)) {
-        const group = groups[index];
-        if (group !== undefined) {
-          semanticIssues.push(
-            ...unavailableForRules(group.rules, input.policy, group.crossField),
-          );
-        }
-        continue;
-      }
-      throw error;
-    }
-    return assembleResult(shapeData, zodIssues, semanticIssues);
-  } finally {
-    combined.dispose();
-  }
+  return runRules({
+    rules: collectExecutableRules(
+      input.boundRules,
+      input.data,
+      shapeData,
+      parsed.success,
+      invalidPrefixes,
+    ),
+    crossField: collectExecutableCrossFields(
+      input.boundCrossFields ?? [],
+      input.data,
+      shapeData,
+      parsed.success,
+      invalidPrefixes,
+    ),
+    data: shapeData,
+    zodIssues,
+    provider: input.provider,
+    timeoutMs: input.timeoutMs,
+    policy: input.policy,
+    hooks: input.hooks,
+    signal: input.signal,
+    entry: "object",
+  });
 }

@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`node pipeline > matches the full-name fixture snapshot content 1`] = `
+{
+  "questions": {
+    "fullName": {
+      "instructions": "Does \`fullName\` fit the following description? A plausible full name for a real person",
+      "type": "noul",
+    },
+  },
+  "state": {
+    "context": {
+      "audience": "client",
+      "domain": "software services",
+      "locale": "es-BO",
+      "purpose": "create_project",
+    },
+    "fullName": "Ana Pérez",
+  },
+}
+`;
+
+exports[`node pipeline > matches the whole-object payload for a single-rule schema 1`] = `
+{
+  "questions": {
+    "fullName": {
+      "instructions": "Does \`fullName\` fit the following description? A plausible full name for a real person",
+      "type": "noul",
+    },
+  },
+  "state": {
+    "fullName": "Ada Lovelace",
+  },
+}
+`;

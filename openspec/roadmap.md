@@ -67,10 +67,8 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
 
 ### [~] 4. `node-validation`
 
-- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/node-validation/`. Signature
-  is `SemanticSchema.node(path).safeParse(value, options)`; cross-field rules not fully covered by
-  the node are skipped; no automatic supersession (shared server instance). Apply after
-  `context-inheritance` is archived.
+- **Status:** applied (2026-09-17) — implementation complete in `src/`. Next:
+  `/opsx:archive node-validation` after `bootstrap-mvp` is archived.
 - **Kickoff:** `/opsx:propose node-validation`
 - **Delivers:** single-field validation (`on blur` style use case) preserving the node's inherited
   context; same result shape as whole-object validation.

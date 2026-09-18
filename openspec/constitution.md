@@ -390,7 +390,9 @@ Deliberately open. Resolved in `design.md`, not here.
 3. **Public API names** (`parseSemantic` / `safeParseSemantic`, `semantic`, cross-field…).
    The PDR's `ed.*` no longer applies.
 4. **Default thresholds** and the fixture set that justifies them.
-5. **Node-level validation:** signature and how it preserves inherited context.
+5. **Node-level validation:** closed by `node-validation` —
+   `SemanticSchema.node(path).safeParse(value, options)` reuses the effective context stored at
+   `define`.
 6. **Array cap:** items evaluated by default and how fan-out is declared.
 
 ---

@@ -652,4 +652,28 @@ describe("multi-group parses", () => {
       path: ["bio"],
     });
   });
+
+  it("stamps node entry and path", async () => {
+    const collected = collectHooks();
+    await createEDcheck({ provider: mockProvider(), hooks: collected.hooks })
+      .define(schema, { rules: { fullName: semantic("A name") } })
+      .node("fullName")
+      .safeParse("Ada");
+    expect(collected.requestEvents[0]).toMatchObject({
+      entry: "node",
+      path: ["fullName"],
+    });
+  });
+
+  it("gives a node parse its own parseId", async () => {
+    const collected = collectHooks();
+    const bound = createEDcheck({
+      provider: mockProvider(),
+      hooks: collected.hooks,
+    }).define(schema, { rules: { fullName: semantic("A name") } });
+    await bound.safeParse({ fullName: "Ada Pérez", bio: "Engineer" });
+    await bound.node("fullName").safeParse("Ada");
+    expect(collected.requestEvents).toHaveLength(2);
+    expect(collected.requestEvents[0]?.parseId).not.toBe(collected.requestEvents[1]?.parseId);
+  });
 });

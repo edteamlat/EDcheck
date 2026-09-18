@@ -202,6 +202,26 @@ are out of v1: a declared path on or through `z.array` is rejected at `define`.
 Every `safeParse` accepts `signal` and `timeoutMs`. A cancelled parse rejects with
 `EDcheckAbortError` and never emits a result. Timeout is a provider failure, not a cancellation.
 
+## Validate one field
+
+`bound.node("fullName")` returns a memoized handle for on-blur style checks. It runs the same
+rules, context and outcome mapping as a whole-object parse, restricted to that path. Cross-field
+rules run on submit unless every declared path sits under the node; inspect `node.ruleIds` to see
+coverage.
+
+```ts
+const FullName = bound.node("fullName");
+
+async function onBlur(value: string) {
+  const controller = new AbortController();
+  const result = await FullName.safeParse(value, { signal: controller.signal });
+  return result;
+}
+```
+
+A new keystroke should abort the previous controller. The library does not supersede in-flight
+calls: a shared server instance must not cancel another request's work.
+
 ## Providers
 
 | Route | When to use | Install | Auth |

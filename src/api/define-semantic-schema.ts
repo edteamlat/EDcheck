@@ -1,4 +1,4 @@
-import type { ZodObject } from "zod";
+import type { output, ZodObject } from "zod";
 
 import { normalizeContext } from "../context/normalize-context.ts";
 import type { ContextObject } from "../context/types/context-object.ts";
@@ -15,11 +15,14 @@ import { parsePath } from "../shared/parse-path.ts";
 import { ancestorContexts } from "./ancestor-contexts.ts";
 import { bindCrossField } from "./bind-cross-field.ts";
 import { collectNodeContexts } from "./collect-node-contexts.ts";
+import { createSemanticNode } from "./create-semantic-node.ts";
 import { resolveEffectiveContext } from "./resolve-effective-context.ts";
 import { runSafeParse } from "./run-safe-parse.ts";
 import type { BoundCrossField } from "./types/bound-cross-field.ts";
 import type { BoundRule } from "./types/bound-rule.ts";
 import type { InstanceConfig } from "./types/instance-config.ts";
+import type { NodePath } from "./types/node-path.ts";
+import type { SemanticNode } from "./types/semantic-node.ts";
 import type { SemanticSchema } from "./types/semantic-schema.ts";
 import type { SemanticSchemaOptions } from "./types/semantic-schema-options.ts";
 
@@ -121,6 +124,7 @@ export function defineSemanticSchema<S extends ZodObject>(
   }
 
   const policy = options.policy ?? instance.policy;
+  const nodes = new Map<string, SemanticNode<S, NodePath<output<S>>>>();
   return {
     schema,
     safeParse(data, parseOptions) {
@@ -135,6 +139,23 @@ export function defineSemanticSchema<S extends ZodObject>(
         hooks: instance.hooks,
         signal: parseOptions?.signal,
       });
+    },
+    node(path) {
+      const key = String(path);
+      const cached = nodes.get(key);
+      if (cached !== undefined) {
+        return cached as SemanticNode<S, typeof path>;
+      }
+      const created = createSemanticNode({
+        schema,
+        path,
+        boundRules,
+        boundCrossFields,
+        instance,
+        policy,
+      });
+      nodes.set(key, created as SemanticNode<S, NodePath<output<S>>>);
+      return created;
     },
   };
 }

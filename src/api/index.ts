@@ -6,6 +6,8 @@ export type { CrossFieldBinding } from "./types/cross-field-binding.ts";
 export type { FieldPath } from "./types/field-path.ts";
 export type { NodePath } from "./types/node-path.ts";
 export type { ParseOptions } from "./types/parse-options.ts";
+export type { PathValue } from "./types/path-value.ts";
+export type { SemanticNode } from "./types/semantic-node.ts";
 export type { ProviderErrorEvent } from "./types/provider-error-event.ts";
 export type { ProviderErrorKind } from "./types/provider-error-kind.ts";
 export type { ProviderRequestEvent } from "./types/provider-request-event.ts";

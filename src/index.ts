@@ -22,6 +22,8 @@ export type {
   FieldPath,
   NodePath,
   ParseOptions,
+  PathValue,
+  SemanticNode,
   ProviderErrorEvent,
   ProviderErrorKind,
   ProviderRequestEvent,
