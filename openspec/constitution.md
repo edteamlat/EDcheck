@@ -302,6 +302,7 @@ EDcheck/
 
 | Module       | Responsibility                                                      | MUST NOT import                   |
 | ------------ | ------------------------------------------------------------------- | --------------------------------- |
+| `api/`       | `createEDcheck`, `define`, parse orchestrator                       | concrete adapters (contract only) |
 | `schema/`    | Zod schema introspection: nodes, paths, shape failures              | `providers/`                      |
 | `rules/`     | Semantic rule types and builders (`semantic`, cross-field)          | `providers/`, `compiler/`         |
 | `context/`   | Context types, inheritance, merge                                   | everything except `shared/`       |
@@ -313,7 +314,7 @@ EDcheck/
 | `shared/`    | Pure utilities: paths, stable ids, environment guard                | —                                 |
 | `index.ts`   | Public surface. The only place that knows concrete adapters         | —                                 |
 
-Flow: `index → (schema, rules, context, compiler, policy, result) → providers[contract] → shared, errors`.
+Flow: `index → api → (schema, rules, context, compiler, policy, result) → providers[contract] → shared, errors`.
 
 File conventions (mandatory):
 

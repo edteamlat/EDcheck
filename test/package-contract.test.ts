@@ -21,4 +21,10 @@ describe("package contract (constitution §3, §11)", () => {
     expect(Object.keys(manifest.exports)).toEqual([".", "./package.json"]);
     expect(manifest.browser).toBeUndefined();
   });
+
+  it("pulls in neither ai nor the TypeSafe SDK", () => {
+    const dependencyNames = Object.keys(manifest.dependencies ?? {});
+    expect(dependencyNames).not.toContain("ai");
+    expect(dependencyNames).not.toContain("@typesafe-ai/sdk");
+  });
 });

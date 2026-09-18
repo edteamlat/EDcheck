@@ -1,0 +1,24 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`question template > matches the compiled payload snapshot for fixture rules 1`] = `
+{
+  "questions": {
+    "bio": {
+      "criteria": {
+        "false": "Meaningless, irrelevant or clearly unrelated text",
+        "true": "Describes the person's professional background coherently",
+      },
+      "instructions": "Does \`bio\` fit the following description? Meaningful professional biography",
+      "type": "noul",
+    },
+    "fullName": {
+      "instructions": "Does \`fullName\` fit the following description? A plausible full name for a real person",
+      "type": "noul",
+    },
+  },
+  "state": {
+    "bio": "Ingeniera de software",
+    "fullName": "Ana Pérez",
+  },
+}
+`;

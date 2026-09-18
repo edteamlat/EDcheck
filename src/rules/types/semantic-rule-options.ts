@@ -1,0 +1,12 @@
+import type { Thresholds } from "../../policy/types/thresholds.ts";
+import type { Severity } from "./severity.ts";
+
+export type SemanticRuleOptions = {
+  intent: string;
+  valid?: string;
+  invalid?: string;
+  thresholds?: Partial<Thresholds>;
+  severity?: Severity;
+  message?: string;
+  id?: string;
+};

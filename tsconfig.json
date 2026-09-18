@@ -17,13 +17,19 @@
 
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
+    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 
     "declaration": true,
-    "noEmit": true
+    "noEmit": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "edcheck": ["./src/index.ts"]
+    }
   },
   "include": ["src", "test", "*.config.ts", "eslint.config.js"]
 }

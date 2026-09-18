@@ -3,8 +3,8 @@
 Semantic validation for [Zod](https://zod.dev) schemas, powered by [TypeSafe Jev](https://docs.typesafe.ai/introduction).
 Validate meaning, not just structure.
 
-> **Status: pre-alpha.** No public API is published yet. The product contract is defined in
-> [`openspec/constitution.md`](./openspec/constitution.md); implementation follows OpenSpec changes.
+> **Status: walking skeleton.** The public API from `bootstrap-mvp` is in place. Thresholds are
+> provisional until `evaluation-harness` calibrates them.
 
 ## The idea
 
@@ -14,39 +14,109 @@ Zod tells you `"asdfasdf"` is a valid 8-character string. EDcheck tells you it i
 | -------- | ----------------------------------------------- | --------------------------------- |
 | Zod 4    | shape: types, `min`, `max`, `regex`, `refine`   | client + server                   |
 | EDcheck  | meaning: plausibility, coherence, relevance     | **server only**                   |
-| Jev      | calibrated yes/no and score probabilities       | TypeSafe API or Vercel AI Gateway |
+| Jev      | calibrated yes/no probabilities                 | TypeSafe API or Vercel AI Gateway |
 | Your app | thresholds, severity, when to validate, secrets | your code                         |
 
 EDcheck does not wrap or re-export Zod. Your existing schema stays the schema. Semantic rules are
-attached on the server, compiled into atomic Jev questions, batched into one request per object,
-and mapped to `pass | warning | fail` with thresholds you control.
+attached on the server, compiled into atomic Jev questions, batched into **one request per object**,
+and mapped to `pass | warning | fail`.
+
+## Install
+
+Requires Node ≥ 20. Zod is a peer dependency.
+
+```sh
+yarn add edcheck zod
+```
+
+## Client: keep the Zod schema
 
 ```ts
-// shared — plain Zod, runs anywhere
+// shared/user.ts — plain Zod, safe to import in the browser
 import { z } from "zod";
 
 export const User = z.object({
   fullName: z.string().min(2).max(100),
-  age: z.number().min(0),
-  occupation: z.string(),
+  bio: z.string().min(10).optional(),
 });
 ```
+
+## Server: bind rules and parse
+
+EDcheck must run on the server (your API route). Calling `createEDcheck` or `safeParse` in a
+browser throws `EDcheckEnvironmentError`.
 
 ```ts
-// server — illustrative; final API is defined in the first OpenSpec change
-const result = await parseSemantic(User, input, {
-  rules: {
-    fullName: semantic("A plausible full name for a real person"),
-  },
-  refine: [{ rule: "occupation is plausible for age", paths: ["age", "occupation"] }],
+import { createEDcheck, semantic, typesafeProvider } from "edcheck";
+
+import { User } from "../shared/user";
+
+const edcheck = createEDcheck({
+  provider: typesafeProvider({ apiKey: process.env.TYPESAFE_API_KEY! }),
 });
 
-result.success; // false only when an issue has severity "error"
-result.issues; // Zod issues + semantic issues with path, probability, thresholds
+const UserSemantic = edcheck.define(User, {
+  rules: {
+    fullName: semantic("A plausible full name for a real person"),
+    bio: semantic({
+      intent: "Meaningful professional biography",
+      valid: "Describes the person's professional background coherently",
+      invalid: "Meaningless, irrelevant or clearly unrelated text",
+      severity: "warning",
+    }),
+  },
+});
+
+export async function POST(request: Request): Promise<Response> {
+  const input = await request.json();
+  const result = await UserSemantic.safeParse(input, { signal: request.signal });
+  return Response.json(result);
+}
 ```
 
-If Jev is unavailable, deterministic validation still applies and the result carries a
-`semantic_unavailable` warning (fail-open by default).
+`result.success` is `false` only when an issue has `severity: "error"`. `result.issues` is one
+array: Zod issues first, then semantic issues. When shape passed, `result.data` is `z.output` of
+the schema even if a semantic rule failed.
+
+## Thresholds (provisional)
+
+`DEFAULT_THRESHOLDS` is `{ pass: 0.8, fail: 0.5 }`. These values are **provisional** and will be
+replaced by fixture-backed defaults in a later change.
+
+- `p ≥ pass` → pass (no issue)
+- `fail ≤ p < pass` → warning
+- `p < fail` → fail
+
+Precedence: rule > schema > instance > defaults.
+
+## Failure policy
+
+If the provider is down, times out, or returns a malformed response:
+
+- `open` (default): one `semantic_unavailable` **warning** per surviving rule. `success` is unchanged.
+- `closed`: the same issues with `severity: "error"`.
+
+```ts
+createEDcheck({ provider, policy: "closed", timeoutMs: 8000 });
+```
+
+## Cancellation
+
+Every `safeParse` accepts `signal` and `timeoutMs`. A cancelled parse rejects with
+`EDcheckAbortError` and never emits a result. Timeout is a provider failure, not a cancellation.
+
+## Testing your app
+
+`mockProvider()` is part of the public API so application tests stay offline:
+
+```ts
+import { createEDcheck, mockProvider, semantic } from "edcheck";
+
+const provider = mockProvider({ answers: { fullName: 0.12 } });
+const bound = createEDcheck({ provider }).define(User, {
+  rules: { fullName: semantic("A plausible full name for a real person") },
+});
+```
 
 ## Development
 
