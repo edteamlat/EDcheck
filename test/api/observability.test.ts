@@ -227,6 +227,7 @@ describe("response events", () => {
     await createEDcheck({
       provider: mockProvider({ answers: { fullName: 0.95, bio: 0.6 }, model: "mock" }),
       hooks: collected.hooks,
+      thresholds: { pass: 0.8, fail: 0.5 },
     })
       .define(schema, { rules })
       .safeParse(data);

@@ -13,10 +13,9 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
 
 ## Changes
 
-### [~] 1. `bootstrap-mvp`
+### [x] 1. `bootstrap-mvp`
 
-- **Status:** applied (2026-09-17) — implementation complete in `src/`. Next:
-  `/opsx:archive bootstrap-mvp`
+- **Status:** archived (2026-09-17) — `openspec/changes/archive/2026-09-17-bootstrap-mvp`
 - **Kickoff:** `/opsx:propose bootstrap-mvp`
 - **Delivers:** walking skeleton. One Zod object, Noul rules on primitive fields, whole-object
   semantic parse, `SemanticProvider` contract + `mock` and `typesafe` adapters, provisional
@@ -34,10 +33,9 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
   empty / whitespace / ≥ 50k chars / emoji / RTL strings; browser environment → explicit error.
 - **Depends on:** —
 
-### [~] 2. `context-inheritance`
+### [x] 2. `context-inheritance`
 
-- **Status:** applied (2026-09-17) — implementation complete in `src/`. Next:
-  `/opsx:archive context-inheritance` after `bootstrap-mvp` is archived.
+- **Status:** archived (2026-09-17) — `openspec/changes/archive/2026-09-17-context-inheritance`
 - **Kickoff:** `/opsx:propose context-inheritance`
 - **Delivers:** string or object context, `notes[]`, precedence instance → schema → node → rule,
   reserved keys, per-rule state minimization (send only what the rule needs).
@@ -50,10 +48,9 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
 - **Note:** may be folded into `bootstrap-mvp` if change 1's design shows the compiler cannot
   build `state` without it. That is a legitimate edit of this file and constitution §15.
 
-### [~] 3. `cross-field-rules`
+### [x] 3. `cross-field-rules`
 
-- **Status:** applied (2026-09-17) — implementation complete in `src/`. Next:
-  `/opsx:archive cross-field-rules` after `bootstrap-mvp` is archived.
+- **Status:** archived (2026-09-17) — `openspec/changes/archive/2026-09-17-cross-field-rules`
 - **Kickoff:** `/opsx:propose cross-field-rules`
 - **Delivers:** rules attached to the containing object with declared `paths`, state restricted
   to those paths, issues attributed to every declared path, backtick field references in
@@ -65,10 +62,9 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
   error at attach time; the compiled state contains only the declared paths.
 - **Depends on:** 1
 
-### [~] 4. `node-validation`
+### [x] 4. `node-validation`
 
-- **Status:** applied (2026-09-17) — implementation complete in `src/`. Next:
-  `/opsx:archive node-validation` after `bootstrap-mvp` is archived.
+- **Status:** archived (2026-09-17) — `openspec/changes/archive/2026-09-17-node-validation`
 - **Kickoff:** `/opsx:propose node-validation`
 - **Delivers:** single-field validation (`on blur` style use case) preserving the node's inherited
   context; same result shape as whole-object validation.
@@ -79,10 +75,9 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
   values explicitly (decided in design); abort in flight.
 - **Depends on:** 2
 
-### [~] 5. `score-rules`
+### [x] 5. `score-rules`
 
-- **Status:** applied (2026-09-17) — implementation complete in `src/`. Next:
-  `/opsx:archive score-rules` after `bootstrap-mvp` is archived.
+- **Status:** archived (2026-09-17) — `openspec/changes/archive/2026-09-17-score-rules`
 - **Kickoff:** `/opsx:propose score-rules`
 - **Delivers:** `kind: "score"` rules with ordered `levels`, level → outcome mapping, low
   `confidence` → warning.
@@ -93,10 +88,9 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
   one provider request.
 - **Depends on:** 1
 
-### [~] 6. `gateway-provider`
+### [x] 6. `gateway-provider`
 
-- **Status:** applied (2026-09-17) — implementation complete in `src/`. Next:
-  `/opsx:archive gateway-provider` after `bootstrap-mvp` is archived.
+- **Status:** archived (2026-09-17) — `openspec/changes/archive/2026-09-17-gateway-provider`
 - **Kickoff:** `/opsx:propose gateway-provider`
 - **Delivers:** Vercel AI Gateway adapter for `typesafe-ai/jev`; normalization of `boolean` →
   noul and `providerMetadata` → confidence; key detection (`TYPESAFE_API_KEY` vs
@@ -108,10 +102,9 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
   `open` / `closed` behavior as the direct adapter.
 - **Depends on:** 1
 
-### [~] 7. `observability-hooks`
+### [x] 7. `observability-hooks`
 
-- **Status:** applied (2026-09-17) — implementation complete in `src/`. Next:
-  `/opsx:archive observability-hooks` after `bootstrap-mvp` is archived.
+- **Status:** archived (2026-09-17) — `openspec/changes/archive/2026-09-17-observability-hooks`
 - **Kickoff:** `/opsx:propose observability-hooks`
 - **Delivers:** `onRequest` / `onResponse` / `onError` callbacks with duration, model, usage
   (tokens, request count) and outcomes.
@@ -122,12 +115,10 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
   typed cancellation error.
 - **Depends on:** 1
 
-### [~] 8. `evaluation-harness`
+### [x] 8. `evaluation-harness`
 
-- **Status:** applied (2026-09-17) — fixture format, registry, runner and derivation are in
-  `test/`. `DEFAULT_THRESHOLDS` stays `{ pass: 0.8, fail: 0.5 }` until
-  `EDCHECK_WRITE_BASELINE=1 yarn eval` writes `test/eval/baseline.json`. Next:
-  `/opsx:archive evaluation-harness` after a real baseline is committed.
+- **Status:** archived (2026-09-17) — `openspec/changes/archive/2026-09-17-evaluation-harness`.
+  Baseline committed; `DEFAULT_THRESHOLDS` is `{ pass: 0.7, fail: 0.7 }`.
 - **Kickoff:** `/opsx:propose evaluation-harness`
 - **Delivers:** `es` / `en` fixtures for the PDR example rules (positive, negative, ambiguous),
   `test/eval/` against real Jev with tolerance bands, calibrated default thresholds.
@@ -153,6 +144,6 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
 
 ## Not changes (plain `chore:` commits)
 
-- [ ] CI workflow running `yarn verify`
-- [ ] `CHANGELOG.md`
+- [x] CI workflow running `yarn verify`
+- [x] `CHANGELOG.md`
 - [ ] npm publish configuration and `0.1.0` release

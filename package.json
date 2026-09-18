@@ -1,6 +1,6 @@
 {
   "name": "edcheck",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Semantic validation for Zod schemas, powered by TypeSafe Jev. Validate meaning, not just structure.",
   "keywords": [
     "zod",
@@ -13,6 +13,17 @@
   ],
   "license": "MIT",
   "author": "EDlabs / EDteam",
+  "homepage": "https://github.com/edteamlat/EDcheck#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edteamlat/EDcheck.git"
+  },
+  "bugs": {
+    "url": "https://github.com/edteamlat/EDcheck/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "engines": {
@@ -21,6 +32,7 @@
   "files": [
     "dist",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "main": "./dist/index.cjs",
@@ -46,7 +58,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "verify": "yarn lint && yarn typecheck && yarn test && yarn build",
-    "eval": "node --env-file-if-exists=.env node_modules/vitest/vitest.mjs run test/eval --fileParallelism=false",
+    "prepublishOnly": "yarn verify",
+    "eval": "node --env-file-if-exists=.env node_modules/vitest/vitest.mjs run test/eval/noul-rules.eval.test.ts test/eval/score-rules.eval.test.ts --fileParallelism=false",
     "spec:validate": "openspec validate --all"
   },
   "peerDependencies": {

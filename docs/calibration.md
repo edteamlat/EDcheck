@@ -31,16 +31,19 @@ part of the gap — where unseen values should land.
 
 ## Current values
 
-`DEFAULT_THRESHOLDS` is `{ pass: 0.8, fail: 0.5 }`.
+`DEFAULT_THRESHOLDS` is `{ pass: 0.7, fail: 0.7 }`.
 
-These remain the bootstrap provisional pair until the first real Jev run writes
-`test/eval/baseline.json`. After that run the constant must equal
-`baseline.calibration.pass` / `fail`.
+The warning band is collapsed: `p ≥ 0.7` is a pass and `p < 0.7` is a fail.
+That pair equals `baseline.calibration.pass` / `fail` after
+`ceilToGrid(0.64 + 0.05)` and `floorToGrid(0.77 - 0.05)` met on the same grid
+step. Override thresholds on the instance, schema or rule to restore a warning
+range.
 
 ## Provenance
 
-No committed baseline yet. Record `recordedAt`, `provider` and `model` here
-when `test/eval/baseline.json` is first written.
+- `recordedAt`: `2026-09-18T03:42:43.213Z`
+- `provider`: `typesafe`
+- `model`: `jev-1.13.0`
 
 ## Recalibration
 

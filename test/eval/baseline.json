@@ -1,0 +1,1679 @@
+{
+  "recordedAt": "2026-09-18T03:42:43.213Z",
+  "provider": "typesafe",
+  "model": "jev-1.13.0",
+  "observations": [
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "pos-jane",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 879.8077920000001,
+      "probability": 0.95
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "pos-hyphenated",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 876.001125,
+      "probability": 0.97
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "pos-jfk",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 861.8949580000001,
+      "probability": 0.99
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "pos-ada",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 836.589958,
+      "probability": 0.98
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "pos-oconnor",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 888.7275410000002,
+      "probability": 0.96
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "pos-compound",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 294.3260829999999,
+      "probability": 0.56
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "neg-keyboard",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 354.8341670000002,
+      "probability": 0.04
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "neg-injection",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 368.28870800000004,
+      "probability": 0.43
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "neg-xxxx",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 308.10304199999996,
+      "probability": 0.16
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "neg-qwerty",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 276.10787500000015,
+      "probability": 0.06
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "neg-digits",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 315.5334579999999,
+      "probability": 0.02
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "neg-spam",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 300.1713750000001,
+      "probability": 0.01
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "amb-alex",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 301.60683400000016,
+      "probability": 0.31
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "amb-initial",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 385.2016249999999,
+      "probability": 0.12
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "amb-drx",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 382.05708400000003,
+      "probability": 0.35
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "amb-unknown",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 390.713166,
+      "probability": 0.06
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "amb-mononym",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 382.34625000000005,
+      "probability": 0.44
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "neg-rtl",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 359.234375,
+      "probability": 0.22
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "pos-rtl",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 289.853791,
+      "probability": 0.86
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "neg-emoji",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 383.34100000000035,
+      "probability": 0.02
+    },
+    {
+      "rule": "full-name",
+      "language": "en",
+      "id": "neg-long",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 316.942458,
+      "probability": 0
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "pos-ana",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 292.84937500000024,
+      "probability": 0.98
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "pos-maria",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 376.770125,
+      "probability": 0.97
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "pos-rtl",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 306.7385409999997,
+      "probability": 0.98
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "pos-luis",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 389.72116700000015,
+      "probability": 0.98
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "pos-carmen",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 357.56929200000013,
+      "probability": 0.97
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "pos-jose",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 324.3607499999998,
+      "probability": 0.97
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "neg-keyboard",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 374.34604199999967,
+      "probability": 0.05
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "neg-injection",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 402.41108399999985,
+      "probability": 0.37
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "neg-xxxx",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 339.5754999999999,
+      "probability": 0.12
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "neg-digits",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 324.19158400000015,
+      "probability": 0.02
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "neg-qwerty",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 362.52591699999994,
+      "probability": 0.06
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "neg-spam",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 424.85429200000044,
+      "probability": 0.01
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "amb-alex",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 305.0880409999995,
+      "probability": 0.34
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "amb-initial",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 356.27458400000023,
+      "probability": 0.12
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "amb-drx",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 329.2229590000002,
+      "probability": 0.35
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "amb-unknown",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 607.3034170000001,
+      "probability": 0.06
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "neg-emoji",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 357.36612500000047,
+      "probability": 0.05
+    },
+    {
+      "rule": "full-name",
+      "language": "es",
+      "id": "neg-long",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 361.0538750000005,
+      "probability": 0.01
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "pos-edcheck",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 307.8240420000002,
+      "probability": 0.91
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "pos-ledger",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 326.251209,
+      "probability": 0.96
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "pos-atlas",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 322.0542089999999,
+      "probability": 0.95
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "pos-payroll",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 341.56083299999955,
+      "probability": 0.96
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "pos-hyphen",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 306.87887500000033,
+      "probability": 0.97
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "pos-platform",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 353.0100419999999,
+      "probability": 0.95
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "neg-keyboard",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 298.15041700000074,
+      "probability": 0.23
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "neg-injection",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 350.27387499999986,
+      "probability": 0.27
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "neg-spam",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 381.9932909999998,
+      "probability": 0.08
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "neg-digits",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 376.63333299999977,
+      "probability": 0.29
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "neg-qwerty",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 281.916416,
+      "probability": 0.61
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "neg-sentence",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 304.9122499999994,
+      "probability": 0.17
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "amb-alpha",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 392.32479200000034,
+      "probability": 0.91
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "amb-one",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 389.82195800000045,
+      "probability": 0.61
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "neg-rtl",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 297.3371670000006,
+      "probability": 0.28
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "neg-emoji",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 368.19566699999996,
+      "probability": 0.64
+    },
+    {
+      "rule": "project-name",
+      "language": "en",
+      "id": "neg-long",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 371.9100419999995,
+      "probability": 0.01
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "pos-edcheck",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 340.182417,
+      "probability": 0.91
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "pos-nomina",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 290.06166699999994,
+      "probability": 0.94
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "pos-acceso",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 365.4806669999998,
+      "probability": 0.92
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "pos-onboarding",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 357.3494580000006,
+      "probability": 0.94
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "pos-observabilidad",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 285.15066599999955,
+      "probability": 0.94
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "pos-inventario",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 354.46629200000007,
+      "probability": 0.96
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "neg-keyboard",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 334.155041,
+      "probability": 0.22
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "neg-injection",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 405.0540409999994,
+      "probability": 0.2
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "neg-spam",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 391.4057920000005,
+      "probability": 0.1
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "neg-digits",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 381.25295800000004,
+      "probability": 0.28
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "neg-qwerty",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 359.76637500000015,
+      "probability": 0.55
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "neg-frase",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 404.68304199999966,
+      "probability": 0.05
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "amb-alfa",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 351.5728330000002,
+      "probability": 0.91
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "amb-uno",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 396.51037499999984,
+      "probability": 0.85
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "neg-rtl",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 333.88624999999956,
+      "probability": 0.31
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "neg-emoji",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 350.3259159999998,
+      "probability": 0.59
+    },
+    {
+      "rule": "project-name",
+      "language": "es",
+      "id": "neg-long",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 369.19508399999995,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "pos-engineer",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 380.4837499999994,
+      "probability": 0.96
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "pos-teacher",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 335.8971250000004,
+      "probability": 0.97
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "pos-nurse",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 386.3417500000005,
+      "probability": 0.95
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "pos-retired",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 360.42783300000065,
+      "probability": 0.93
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "pos-carpenter",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 317.8775000000005,
+      "probability": 0.95
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "pos-lawyer",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 321.7584169999991,
+      "probability": 0.95
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "neg-child-senior",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 416.65387499999997,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "neg-injection",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 340.3160000000007,
+      "probability": 0.09
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "neg-child-cmo",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 304.92420800000036,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "neg-child-pilot",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 319.67433300000084,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "neg-toddler-ceo",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 301.83266600000024,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "neg-child-surgeon",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 295.641708000001,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "amb-intern",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 379.3425419999985,
+      "probability": 0.83
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "amb-founder",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 408.98049999999967,
+      "probability": 0.88
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "amb-senior",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 307.8916250000002,
+      "probability": 0.29
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "amb-youtuber",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 360.1760000000013,
+      "probability": 0.91
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "neg-rtl",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 325.41270799999984,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "neg-emoji",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 332.7721250000013,
+      "probability": 0.02
+    },
+    {
+      "rule": "age-occupation",
+      "language": "en",
+      "id": "neg-long",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 328.88095799999974,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "pos-ingeniera",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 289.64691700000003,
+      "probability": 0.95
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "pos-profesora",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 315.3407920000009,
+      "probability": 0.96
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "pos-enfermero",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 378.6853339999998,
+      "probability": 0.93
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "pos-catedratico",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 305.9523330000011,
+      "probability": 0.77
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "pos-carpintera",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 294.67362499999945,
+      "probability": 0.92
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "pos-abogada",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 381.28458300000057,
+      "probability": 0.95
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "neg-nino-senior",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 285.31066699999974,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "neg-injection",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 515.8429579999993,
+      "probability": 0.08
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "neg-nino-medica",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 278.0881250000002,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "neg-nino-piloto",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 328.1998340000009,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "neg-bebe-ceo",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 307.08304099999987,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "neg-nino-cirujano",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 338.8518329999988,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "amb-becaria",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 292.9075410000005,
+      "probability": 0.85
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "amb-fundadora",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 352.2502910000003,
+      "probability": 0.85
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "amb-senior",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 331.7872090000001,
+      "probability": 0.18
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "amb-youtuber",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 536.9002499999988,
+      "probability": 0.9
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "neg-rtl",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 300.3339999999989,
+      "probability": 0.01
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "neg-emoji",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 313.1957080000011,
+      "probability": 0.03
+    },
+    {
+      "rule": "age-occupation",
+      "language": "es",
+      "id": "neg-long",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 379.926958,
+      "probability": 0.01
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "pos-ana-engineer",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 331.4757499999996,
+      "probability": 0.97
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "pos-luis-teacher",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 332.7919579999998,
+      "probability": 0.97
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "pos-mary-nurse",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 343.6893749999999,
+      "probability": 0.97
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "pos-ada-writer",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 356.4979170000006,
+      "probability": 0.81
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "pos-omar-chef",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 416.92679099999987,
+      "probability": 0.96
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "pos-sofia-lawyer",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 315.15337499999987,
+      "probability": 0.97
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "neg-child-ceo",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 356.1592500000006,
+      "probability": 0.06
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "neg-injection",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 301.4931669999987,
+      "probability": 0.46
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "neg-wrong-job",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 358.3790829999998,
+      "probability": 0.06
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "neg-wrong-name",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 324.3940419999999,
+      "probability": 0.01
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "neg-keyboard",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 340.52908300000126,
+      "probability": 0.25
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "neg-emptyish",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 291.7738329999993,
+      "probability": 0.16
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "amb-short",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 316.4758750000001,
+      "probability": 0.95
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "amb-career-change",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 307.10462499999994,
+      "probability": 0.88
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "neg-rtl",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 321.7754169999989,
+      "probability": 0.11
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "neg-emoji",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 771.7257079999999,
+      "probability": 0.22
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "en",
+      "id": "neg-long",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 292.0532910000002,
+      "probability": 0.04
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "pos-ana-ingeniera",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 330.5930410000001,
+      "probability": 0.97
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "pos-luis-profesor",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 297.80045900000005,
+      "probability": 0.96
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "pos-maria-enfermera",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 354.2936659999996,
+      "probability": 0.96
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "pos-carmen-abogada",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 303.0704170000008,
+      "probability": 0.97
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "pos-jose-cocinero",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 347.84245799999917,
+      "probability": 0.95
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "pos-sofia-profesora",
+      "expect": "positive",
+      "model": "jev-1.13.0",
+      "durationMs": 423.64095799999996,
+      "probability": 0.96
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "neg-nina-ceo",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 340.767167,
+      "probability": 0.07
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "neg-injection",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 327.8056660000002,
+      "probability": 0.48
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "neg-otro-oficio",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 371.73616700000093,
+      "probability": 0.16
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "neg-otro-nombre",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 374.7007080000003,
+      "probability": 0.04
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "neg-keyboard",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 312.917875000001,
+      "probability": 0.22
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "neg-spam",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 312.44624999999905,
+      "probability": 0.24
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "amb-corta",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 304.37708399999974,
+      "probability": 0.92
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "amb-cambio",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 302.9170419999991,
+      "probability": 0.83
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "neg-rtl",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 320.42262499999924,
+      "probability": 0.06
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "neg-emoji",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 278.729041999999,
+      "probability": 0.33
+    },
+    {
+      "rule": "bio-consistency",
+      "language": "es",
+      "id": "neg-long",
+      "expect": "negative",
+      "model": "jev-1.13.0",
+      "durationMs": 338.9059589999997,
+      "probability": 0.04
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "clear-edcheck",
+      "expect": {
+        "level": "clear"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 821.965625,
+      "score": 2,
+      "confidence": 0.99,
+      "level": "clear"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "clear-bakery",
+      "expect": {
+        "level": "clear"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 832.654875,
+      "score": 1.99,
+      "confidence": 0.99,
+      "level": "clear"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "clear-guitar",
+      "expect": {
+        "level": "clear"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 874.866541,
+      "score": 1.99,
+      "confidence": 0.99,
+      "level": "clear"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "vague-platform",
+      "expect": {
+        "level": "vague"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 833.457291,
+      "score": 1,
+      "confidence": 1,
+      "level": "vague"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "vague-ai",
+      "expect": {
+        "level": "vague"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 896.6331250000001,
+      "score": 1,
+      "confidence": 1,
+      "level": "vague"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "vague-cloud",
+      "expect": {
+        "level": "vague"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 294.2858339999999,
+      "score": 1.04,
+      "confidence": 0.94,
+      "level": "vague"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "meaningless-keyboard",
+      "expect": {
+        "level": "meaningless"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 329.603833,
+      "score": 0,
+      "confidence": 1,
+      "level": "meaningless"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "meaningless-repeat",
+      "expect": {
+        "level": "meaningless"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 367.9175,
+      "score": 0,
+      "confidence": 0.99,
+      "level": "meaningless"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "meaningless-injection",
+      "expect": {
+        "level": "meaningless"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 333.72720900000013,
+      "score": 0.39,
+      "confidence": 0.42,
+      "level": "meaningless"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "amb-tool",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 313.30170799999996,
+      "score": 1,
+      "confidence": 0.99,
+      "level": "vague"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "amb-data",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 385.4024169999998,
+      "score": 1,
+      "confidence": 1,
+      "level": "vague"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "meaningless-rtl",
+      "expect": {
+        "level": "meaningless"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 358.8884169999999,
+      "score": 0.01,
+      "confidence": 0.98,
+      "level": "meaningless"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "meaningless-emoji",
+      "expect": {
+        "level": "meaningless"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 307.002334,
+      "score": 0,
+      "confidence": 1,
+      "level": "meaningless"
+    },
+    {
+      "rule": "project-description",
+      "language": "en",
+      "id": "clear-long",
+      "expect": {
+        "level": "clear"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 284.0407500000001,
+      "score": 1.62,
+      "confidence": 0.43,
+      "level": "clear"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "clear-edcheck",
+      "expect": {
+        "level": "clear"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 306.24245900000005,
+      "score": 1.99,
+      "confidence": 0.99,
+      "level": "clear"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "clear-panaderia",
+      "expect": {
+        "level": "clear"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 342.30395799999997,
+      "score": 2,
+      "confidence": 0.99,
+      "level": "clear"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "clear-guitarra",
+      "expect": {
+        "level": "clear"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 320.0541250000001,
+      "score": 1.99,
+      "confidence": 0.99,
+      "level": "clear"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "vague-plataforma",
+      "expect": {
+        "level": "vague"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 334.00687500000004,
+      "score": 1,
+      "confidence": 0.99,
+      "level": "vague"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "vague-ia",
+      "expect": {
+        "level": "vague"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 302.700292,
+      "score": 1.01,
+      "confidence": 0.99,
+      "level": "vague"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "vague-nube",
+      "expect": {
+        "level": "vague"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 354.1553329999997,
+      "score": 1.07,
+      "confidence": 0.9,
+      "level": "vague"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "meaningless-keyboard",
+      "expect": {
+        "level": "meaningless"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 315.15695800000003,
+      "score": 0,
+      "confidence": 1,
+      "level": "meaningless"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "meaningless-repeat",
+      "expect": {
+        "level": "meaningless"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 321.21383300000025,
+      "score": 0,
+      "confidence": 0.99,
+      "level": "meaningless"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "meaningless-injection",
+      "expect": {
+        "level": "meaningless"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 367.8711669999998,
+      "score": 0.48,
+      "confidence": 0.28,
+      "level": "meaningless"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "amb-herramienta",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 377.9380409999999,
+      "score": 1,
+      "confidence": 0.99,
+      "level": "vague"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "amb-datos",
+      "expect": "ambiguous",
+      "model": "jev-1.13.0",
+      "durationMs": 291.0438750000003,
+      "score": 1,
+      "confidence": 1,
+      "level": "vague"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "meaningless-rtl",
+      "expect": {
+        "level": "meaningless"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 405.6455000000001,
+      "score": 0.05,
+      "confidence": 0.92,
+      "level": "meaningless"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "meaningless-emoji",
+      "expect": {
+        "level": "meaningless"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 354.675792,
+      "score": 0.02,
+      "confidence": 0.98,
+      "level": "meaningless"
+    },
+    {
+      "rule": "project-description",
+      "language": "es",
+      "id": "clear-long",
+      "expect": {
+        "level": "clear"
+      },
+      "model": "jev-1.13.0",
+      "durationMs": 316.70433300000013,
+      "score": 1.63,
+      "confidence": 0.44,
+      "level": "clear"
+    }
+  ],
+  "calibration": {
+    "separable": true,
+    "pass": 0.7,
+    "fail": 0.7,
+    "negativeMax": 0.64,
+    "positiveMin": 0.77,
+    "narrowGap": false,
+    "positiveDecisiveRate": 1,
+    "negativeDecisiveRate": 1,
+    "ambiguousInWarningRate": 0
+  }
+}

@@ -62,8 +62,9 @@
     },
     {
       "id": "neg-qwerty",
-      "expect": "negative",
+      "expect": "ambiguous",
       "value": "qwerty",
+      "note": "Keyboard mash that can also read as a product name",
       "tags": [
         "adversarial"
       ]

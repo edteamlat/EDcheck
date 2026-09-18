@@ -237,9 +237,10 @@ describe("semantic issue shape", () => {
 
   it("uses the default warning message", async () => {
     const provider = mockProvider({ answers: { fullName: 0.6 } });
-    const bound = createEDcheck({ provider }).define(z.object({ fullName: z.string() }), {
-      rules: { fullName: nameRule },
-    });
+    const bound = createEDcheck({ provider, thresholds: { pass: 0.8, fail: 0.5 } }).define(
+      z.object({ fullName: z.string() }),
+      { rules: { fullName: nameRule } },
+    );
     const result = await bound.safeParse({ fullName: "Ana" });
     expect(result.issues[0]?.message).toBe('Semantic rule "fullName" is uncertain');
   });
@@ -463,7 +464,7 @@ describe("success semantics", () => {
 
   it("stays successful when issues are only warning and info", async () => {
     const provider = mockProvider({ answers: { fullName: 0.6, bio: 0.1 } });
-    const bound = createEDcheck({ provider }).define(
+    const bound = createEDcheck({ provider, thresholds: { pass: 0.8, fail: 0.5 } }).define(
       z.object({ fullName: z.string(), bio: z.string() }),
       {
         rules: {

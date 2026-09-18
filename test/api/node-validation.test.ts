@@ -392,6 +392,7 @@ describe("node pipeline", () => {
   it("keeps success on a warning", async () => {
     const result = await createEDcheck({
       provider: mockProvider({ answers: { fullName: 0.6 } }),
+      thresholds: { pass: 0.8, fail: 0.5 },
     })
       .define(z.object({ fullName: z.string() }), { rules: { fullName: nameRule } })
       .node("fullName")

@@ -66,7 +66,10 @@ describe("probability to outcome mapping", () => {
         .safeParse({ fullName: "Ana" });
       outcomes.push(result.issues[0]?.outcome ?? "pass");
     }
-    expect(outcomes).toEqual(["pass", "warning", "warning", "fail"]);
+    const collapsed = DEFAULT_THRESHOLDS.pass === DEFAULT_THRESHOLDS.fail;
+    expect(outcomes).toEqual(
+      collapsed ? ["pass", "fail", "pass", "fail"] : ["pass", "warning", "warning", "fail"],
+    );
   });
 
   it("collapses the warning band when pass equals fail", async () => {
@@ -116,7 +119,7 @@ describe("threshold precedence", () => {
     const result = await parseWithAnswer(0.9, { provider: mockProvider({ answers: { fullName: 0.9 } }), thresholds: { pass: 0.95 } });
     expect(result.issues[0]).toMatchObject({
       outcome: "warning",
-      thresholds: { pass: 0.95, fail: 0.5 },
+      thresholds: { pass: 0.95, fail: DEFAULT_THRESHOLDS.fail },
     });
   });
 });

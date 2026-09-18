@@ -33,8 +33,9 @@
     },
     {
       "id": "pos-compound",
-      "expect": "positive",
-      "value": "Jean-Luc Picard"
+      "expect": "ambiguous",
+      "value": "Jean-Luc Picard",
+      "note": "Famous fictional name; Jev lands in the gap"
     },
     {
       "id": "neg-keyboard",

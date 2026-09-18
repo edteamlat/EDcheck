@@ -3,8 +3,7 @@
 Semantic validation for [Zod](https://zod.dev) schemas, powered by [TypeSafe Jev](https://docs.typesafe.ai/introduction).
 Validate meaning, not just structure.
 
-> **Status: walking skeleton.** The public API from `bootstrap-mvp` is in place. Thresholds are
-> provisional until `evaluation-harness` calibrates them.
+> **v0.1.0.** Server-only semantic validation for Zod 4. See [CHANGELOG.md](CHANGELOG.md).
 
 ## The idea
 
@@ -80,10 +79,11 @@ the schema even if a semantic rule failed.
 
 ## Thresholds
 
-`DEFAULT_THRESHOLDS` is `{ pass: 0.8, fail: 0.5 }` until the first real Jev run
-writes `test/eval/baseline.json`. After that, the constant **must** equal the
-derivation over that baseline. Provenance and the recalibration loop live in
-[`docs/calibration.md`](docs/calibration.md).
+`DEFAULT_THRESHOLDS` is `{ pass: 0.7, fail: 0.7 }`, derived from
+`test/eval/baseline.json` (`jev-1.13.0`, `2026-09-18T03:42:43.213Z`). The
+warning band is collapsed: `p ≥ 0.7` passes and `p < 0.7` fails. Override on
+the instance, schema or rule to restore a warning range. Provenance and the
+recalibration loop live in [`docs/calibration.md`](docs/calibration.md).
 
 - `p ≥ pass` → pass (no issue)
 - `fail ≤ p < pass` → warning
@@ -106,7 +106,11 @@ semantic({
   levels: [
     { label: "meaningless", description: "Random, spam-like or unrelated text", outcome: "fail" },
     { label: "vague", description: "On topic but too vague to act on", outcome: "warning" },
-    { label: "clear", description: "Explains what to build or which problem to solve", outcome: "pass" },
+    {
+      label: "clear",
+      description: "Explains what to build or which problem to solve",
+      outcome: "pass",
+    },
   ],
 });
 ```
@@ -229,10 +233,10 @@ calls: a shared server instance must not cancel another request's work.
 
 ## Providers
 
-| Route | When to use | Install | Auth |
-| --- | --- | --- | --- |
-| `typesafeProvider` | Direct TypeSafe API | none beyond `edcheck` | `TYPESAFE_API_KEY` |
-| `gatewayProvider` | Vercel AI Gateway (billing, OIDC) | `yarn add ai @ai-sdk/gateway` | `AI_GATEWAY_API_KEY` or Vercel OIDC |
+| Route              | When to use                       | Install                       | Auth                                |
+| ------------------ | --------------------------------- | ----------------------------- | ----------------------------------- |
+| `typesafeProvider` | Direct TypeSafe API               | none beyond `edcheck`         | `TYPESAFE_API_KEY`                  |
+| `gatewayProvider`  | Vercel AI Gateway (billing, OIDC) | `yarn add ai @ai-sdk/gateway` | `AI_GATEWAY_API_KEY` or Vercel OIDC |
 
 `ai` and `@ai-sdk/gateway` are optional peers. They load on the first `evaluate` via a dynamic
 `import()`. A TypeSafe-direct install never pulls them in.
@@ -261,17 +265,17 @@ peer. Empty strings count as unset.
 Each fires exactly once per provider request. A parse that makes no request fires nothing. EDcheck
 never writes to stdout, stderr or `console`.
 
-| Field | Meaning |
-| --- | --- |
-| `parseId` | One id per `safeParse` call |
-| `requestId` | One id per provider request (use as a span id) |
-| `requestIndex` / `requestCount` | Group position and how many requests this parse planned |
-| `provider` | `provider.name` |
-| `entry` | `"object"` (or `"node"` when node validation is used) |
-| `ruleIds` | Question ids in this request |
-| `durationMs` | Provider latency for the terminal event |
-| `outcomes` | `pass` / `warning` / `fail` per rule, before severity mapping |
-| `kind` | `"provider"` / `"abort"` / `"unexpected"` on `onError` |
+| Field                           | Meaning                                                       |
+| ------------------------------- | ------------------------------------------------------------- |
+| `parseId`                       | One id per `safeParse` call                                   |
+| `requestId`                     | One id per provider request (use as a span id)                |
+| `requestIndex` / `requestCount` | Group position and how many requests this parse planned       |
+| `provider`                      | `provider.name`                                               |
+| `entry`                         | `"object"` (or `"node"` when node validation is used)         |
+| `ruleIds`                       | Question ids in this request                                  |
+| `durationMs`                    | Provider latency for the terminal event                       |
+| `outcomes`                      | `pass` / `warning` / `fail` per rule, before severity mapping |
+| `kind`                          | `"provider"` / `"abort"` / `"unexpected"` on `onError`        |
 
 Aggregate a parse by waiting for `requestCount` terminal events that share a `parseId`. OpenTelemetry-style:
 

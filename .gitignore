@@ -14,3 +14,4 @@ coverage/
 # os / editor
 .DS_Store
 *.log
+.vitest/

@@ -117,7 +117,7 @@ describe("cross-field issue attribution", () => {
 
   it("Warning outcome fans out too", async () => {
     const provider = mockProvider({ answers: { "age+occupation": 0.6 } });
-    const result = await createEDcheck({ provider })
+    const result = await createEDcheck({ provider, thresholds: { pass: 0.8, fail: 0.5 } })
       .define(pair, {
         rules: {},
         crossField: [{ paths: ["age", "occupation"], rule: semantic("Coherent") }],

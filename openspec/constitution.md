@@ -4,10 +4,10 @@
 > 2026-09-17. Where this document and the PDR differ, this document wins.
 > Condensed agent context: `openspec/config.yaml`. Current behavior: `openspec/specs/`.
 
-**Status:** v1.1 — product contract locked, TDD mandated, change roadmap drafted
+**Status:** v1.1 — product contract locked; v1 changes archived; `0.1.0` release
 **Product:** EDcheck — semantic validation for Zod schemas
-**Package:** `edcheck` (npm, name available as of 2026-09-17)
-**Next step:** first change `bootstrap-mvp`
+**Package:** `edcheck`
+**Next step:** publish `0.1.0` to npm
 
 ---
 
@@ -391,10 +391,9 @@ Deliberately open. Resolved in `design.md`, not here.
    The PDR's `ed.*` no longer applies.
 4. **Default thresholds:** closed by `evaluation-harness` —
    `DEFAULT_THRESHOLDS` equals the derivation over `test/eval/baseline.json`
-   once that file is committed. The algorithm is
-   `test/helpers/calibration/derive-thresholds.ts`; the method is documented in
-   `docs/calibration.md`. Until the first real Jev run, the bootstrap pair
-   `{ pass: 0.8, fail: 0.5 }` remains.
+   (`{ pass: 0.7, fail: 0.7 }` as of the 2026-09-18 Jev 1.13.0 baseline). The
+   algorithm is `test/helpers/calibration/derive-thresholds.ts`; the method is
+   documented in `docs/calibration.md`.
 5. **Node-level validation:** closed by `node-validation` —
    `SemanticSchema.node(path).safeParse(value, options)` reuses the effective context stored at
    `define`.
