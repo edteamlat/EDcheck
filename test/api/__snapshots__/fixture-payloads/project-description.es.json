@@ -1,0 +1,16 @@
+{
+  "questions": {
+    "description": {
+      "criteria": [
+        "Random, spam-like or unrelated text",
+        "On topic but too vague to act on",
+        "Explains what to build or which problem to solve",
+      ],
+      "instructions": "Rate `description` on this scale: How well does the description explain the software project?",
+      "type": "score",
+    },
+  },
+  "state": {
+    "description": "Una librería TypeScript que valida el significado de los campos de un formulario después de que Zod comprueba su forma, para que las APIs rechacen nombres implausibles y biografías vacías.",
+  },
+}

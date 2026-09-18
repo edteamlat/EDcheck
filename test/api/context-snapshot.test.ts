@@ -3,7 +3,14 @@ import { z } from "zod";
 
 import { createEDcheck, mockProvider, semantic } from "edcheck";
 
-import esFullName from "../fixtures/full-name/es.json";
+const pdrProjectContext = {
+  domain: "software services",
+  purpose: "create_project",
+  audience: "client",
+  locale: "es-BO",
+};
+
+const firstPositiveName = "Ana Pérez";
 
 const nameRule = semantic("A plausible full name for a real person");
 const bioRule = semantic({
@@ -36,7 +43,7 @@ describe("context in state", () => {
         context: {},
         nodeContext: {},
       })
-      .safeParse({ fullName: esFullName.positive[0], bio: "Ingeniera de software" });
+      .safeParse({ fullName: firstPositiveName, bio: "Ingeniera de software" });
     expect(provider.calls[0]).toMatchSnapshot();
   });
 
@@ -45,9 +52,9 @@ describe("context in state", () => {
     await createEDcheck({ provider })
       .define(z.object({ fullName: z.string() }), {
         rules: { fullName: nameRule },
-        context: esFullName.context,
+        context: pdrProjectContext,
       })
-      .safeParse({ fullName: esFullName.positive[0] });
+      .safeParse({ fullName: firstPositiveName });
     expect(provider.calls[0]).toMatchSnapshot();
   });
 });

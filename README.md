@@ -78,16 +78,21 @@ export async function POST(request: Request): Promise<Response> {
 array: Zod issues first, then semantic issues. When shape passed, `result.data` is `z.output` of
 the schema even if a semantic rule failed.
 
-## Thresholds (provisional)
+## Thresholds
 
-`DEFAULT_THRESHOLDS` is `{ pass: 0.8, fail: 0.5 }`. These values are **provisional** and will be
-replaced by fixture-backed defaults in a later change.
+`DEFAULT_THRESHOLDS` is `{ pass: 0.8, fail: 0.5 }` until the first real Jev run
+writes `test/eval/baseline.json`. After that, the constant **must** equal the
+derivation over that baseline. Provenance and the recalibration loop live in
+[`docs/calibration.md`](docs/calibration.md).
 
 - `p ≥ pass` → pass (no issue)
 - `fail ≤ p < pass` → warning
 - `p < fail` → fail
 
 Precedence: rule > schema > instance > defaults.
+
+Run evaluations (skipped without a key) with `yarn eval`. To refresh the
+baseline: `EDCHECK_WRITE_BASELINE=1 yarn eval`.
 
 ## Score rules
 

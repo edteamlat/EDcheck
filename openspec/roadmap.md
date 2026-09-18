@@ -124,10 +124,10 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
 
 ### [~] 8. `evaluation-harness`
 
-- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/evaluation-harness/`.
-  Unified fixture format with tags, binding registry, one eval runner, committed baseline and a
-  deterministic threshold derivation (`DEFAULT_THRESHOLDS` must equal the baseline). Apply after
-  `cross-field-rules` and `score-rules` are archived; the calibration task needs a real key once.
+- **Status:** applied (2026-09-17) — fixture format, registry, runner and derivation are in
+  `test/`. `DEFAULT_THRESHOLDS` stays `{ pass: 0.8, fail: 0.5 }` until
+  `EDCHECK_WRITE_BASELINE=1 yarn eval` writes `test/eval/baseline.json`. Next:
+  `/opsx:archive evaluation-harness` after a real baseline is committed.
 - **Kickoff:** `/opsx:propose evaluation-harness`
 - **Delivers:** `es` / `en` fixtures for the PDR example rules (positive, negative, ambiguous),
   `test/eval/` against real Jev with tolerance bands, calibrated default thresholds.

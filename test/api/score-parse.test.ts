@@ -94,13 +94,15 @@ describe("score question template", () => {
 
   it("matches the compiled payload snapshot for the project-description rule", async () => {
     const provider = mockProvider();
-    const first = en.cases[0];
+    const first = en.cases.find(
+      (item) => typeof item.expect === "object" && item.expect.level === "clear",
+    );
     if (first === undefined) {
-      throw new Error("expected at least one English case");
+      throw new Error("expected at least one English clear case");
     }
     await createEDcheck({ provider })
       .define(schema, { rules: { description: projectDescriptionRule() } })
-      .safeParse({ description: first.text });
+      .safeParse({ description: first.value });
     expect(provider.calls[0]).toMatchSnapshot();
   });
 });

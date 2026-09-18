@@ -1,0 +1,15 @@
+{
+  "questions": {
+    "age+occupation": {
+      "criteria": {
+        "false": "The `occupation` requires more years than the `age` allows",
+      },
+      "instructions": "Is the following statement true about `age` and `occupation`? The `occupation` is plausible for someone of the given `age`",
+      "type": "noul",
+    },
+  },
+  "state": {
+    "age": 35,
+    "occupation": "Software engineer",
+  },
+}

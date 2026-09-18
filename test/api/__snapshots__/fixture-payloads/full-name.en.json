@@ -1,0 +1,11 @@
+{
+  "questions": {
+    "fullName": {
+      "instructions": "Does `fullName` fit the following description? A plausible full name for a real person",
+      "type": "noul",
+    },
+  },
+  "state": {
+    "fullName": "Jane Doe",
+  },
+}

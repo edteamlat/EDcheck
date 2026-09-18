@@ -1,14 +1,18 @@
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
 
-import { createEDcheck, mockProvider, semantic } from "edcheck";
+import { createEDcheck, DEFAULT_THRESHOLDS, mockProvider, semantic } from "edcheck";
 
 const schema = z.object({ fullName: z.string() });
 const nameRule = semantic("A plausible full name for a real person");
 
 async function parseWithAnswer(noul: number, options?: Parameters<typeof createEDcheck>[0]) {
   const provider = mockProvider({ answers: { fullName: noul } });
-  const bound = createEDcheck({ provider, ...options }).define(schema, {
+  const bound = createEDcheck({
+    provider,
+    thresholds: { pass: 0.8, fail: 0.5 },
+    ...options,
+  }).define(schema, {
     rules: { fullName: nameRule },
   });
   return bound.safeParse({ fullName: "Ana" });
@@ -45,6 +49,24 @@ describe("probability to outcome mapping", () => {
     const one = await parseWithAnswer(1);
     expect(zero.issues[0]?.outcome).toBe("fail");
     expect(one.issues).toEqual([]);
+  });
+
+  it("Default band boundaries", async () => {
+    const answers = [
+      DEFAULT_THRESHOLDS.pass,
+      DEFAULT_THRESHOLDS.pass - 0.01,
+      DEFAULT_THRESHOLDS.fail,
+      DEFAULT_THRESHOLDS.fail - 0.01,
+    ];
+    const outcomes = [];
+    for (const noul of answers) {
+      const provider = mockProvider({ answers: { fullName: noul } });
+      const result = await createEDcheck({ provider })
+        .define(schema, { rules: { fullName: nameRule } })
+        .safeParse({ fullName: "Ana" });
+      outcomes.push(result.issues[0]?.outcome ?? "pass");
+    }
+    expect(outcomes).toEqual(["pass", "warning", "warning", "fail"]);
   });
 
   it("collapses the warning band when pass equals fail", async () => {

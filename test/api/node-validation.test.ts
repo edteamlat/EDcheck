@@ -12,7 +12,14 @@ import {
   type SemanticResponse,
 } from "edcheck";
 
-import esFullName from "../fixtures/full-name/es.json";
+const pdrProjectContext = {
+  domain: "software services",
+  purpose: "create_project",
+  audience: "client",
+  locale: "es-BO",
+};
+
+const firstPositiveName = "Ana Pérez";
 
 const nameRule = semantic("A plausible full name for a real person");
 const streetRule = semantic("A plausible street address");
@@ -410,12 +417,12 @@ describe("node pipeline", () => {
     const nodeProvider = mockProvider();
     const schema = z.object({ fullName: z.string() });
     await createEDcheck({ provider: objectProvider })
-      .define(schema, { rules: { fullName: nameRule }, context: esFullName.context })
-      .safeParse({ fullName: esFullName.positive[0] });
+      .define(schema, { rules: { fullName: nameRule }, context: pdrProjectContext })
+      .safeParse({ fullName: firstPositiveName });
     await createEDcheck({ provider: nodeProvider })
-      .define(schema, { rules: { fullName: nameRule }, context: esFullName.context })
+      .define(schema, { rules: { fullName: nameRule }, context: pdrProjectContext })
       .node("fullName")
-      .safeParse(esFullName.positive[0]);
+      .safeParse(firstPositiveName);
     expect(nodeProvider.calls[0]).toEqual(objectProvider.calls[0]);
     expect(nodeProvider.calls[0]).toMatchSnapshot();
   });

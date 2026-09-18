@@ -46,6 +46,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "verify": "yarn lint && yarn typecheck && yarn test && yarn build",
+    "eval": "node --env-file-if-exists=.env node_modules/vitest/vitest.mjs run test/eval --fileParallelism=false",
     "spec:validate": "openspec validate --all"
   },
   "peerDependencies": {

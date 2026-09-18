@@ -120,7 +120,14 @@ describe("cross-field question template", () => {
         rules: {},
         crossField: [{ paths: ["age", "occupation"], rule: pdrRule }],
       })
-      .safeParse(enAgeOccupation.negative[0]);
+      .safeParse(
+        enAgeOccupation.cases.find(
+          (item) =>
+            item.expect === "negative" &&
+            JSON.stringify(item.value) ===
+              JSON.stringify({ age: 7, occupation: "Senior engineer, 15 years experience" }),
+        )?.value,
+      );
     expect(provider.calls[0]).toMatchSnapshot();
   });
 });

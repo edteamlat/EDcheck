@@ -9,6 +9,12 @@ import es from "../fixtures/full-name/es.json";
 const fixtures = { en, es };
 const apiKey = process.env.AI_GATEWAY_API_KEY;
 
+function values(file: typeof en, expectLabel: "positive" | "negative"): string[] {
+  return file.cases
+    .filter((item) => item.expect === expectLabel && typeof item.value === "string")
+    .map((item) => item.value);
+}
+
 describe.skipIf(!apiKey)("gateway full-name smoke eval", () => {
   const bound = () =>
     createEDcheck({
@@ -19,7 +25,7 @@ describe.skipIf(!apiKey)("gateway full-name smoke eval", () => {
 
   for (const [locale, cases] of Object.entries(fixtures)) {
     it(`scores ${locale} positives at or above 0.6`, async () => {
-      for (const value of cases.positive) {
+      for (const value of values(cases, "positive")) {
         const result = await bound().safeParse({ fullName: value });
         const issue = result.issues.find((item) => item.ruleId === "fullName");
         const probability = issue?.probability ?? 1;
@@ -28,7 +34,7 @@ describe.skipIf(!apiKey)("gateway full-name smoke eval", () => {
     });
 
     it(`scores ${locale} negatives at or below 0.4`, async () => {
-      for (const value of cases.negative) {
+      for (const value of values(cases, "negative")) {
         const result = await bound().safeParse({ fullName: value });
         const issue = result.issues.find((item) => item.ruleId === "fullName");
         const probability = issue?.probability ?? 1;

@@ -5,9 +5,11 @@ import { EDcheckConfigError } from "edcheck";
 import { DEFAULT_THRESHOLDS, resolveThresholds } from "../../src/policy/index.ts";
 
 describe("resolveThresholds", () => {
-  it("exports a frozen provisional default", () => {
-    expect(DEFAULT_THRESHOLDS).toEqual({ pass: 0.8, fail: 0.5 });
+  it("exports a frozen default", () => {
     expect(Object.isFrozen(DEFAULT_THRESHOLDS)).toBe(true);
+    expect(DEFAULT_THRESHOLDS.fail).toBeGreaterThan(0);
+    expect(DEFAULT_THRESHOLDS.fail).toBeLessThanOrEqual(DEFAULT_THRESHOLDS.pass);
+    expect(DEFAULT_THRESHOLDS.pass).toBeLessThan(1);
   });
 
   it("merges four levels with later levels winning", () => {

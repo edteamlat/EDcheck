@@ -389,7 +389,12 @@ Deliberately open. Resolved in `design.md`, not here.
    `ai` only for Gateway. Constraint: §7.
 3. **Public API names** (`parseSemantic` / `safeParseSemantic`, `semantic`, cross-field…).
    The PDR's `ed.*` no longer applies.
-4. **Default thresholds** and the fixture set that justifies them.
+4. **Default thresholds:** closed by `evaluation-harness` —
+   `DEFAULT_THRESHOLDS` equals the derivation over `test/eval/baseline.json`
+   once that file is committed. The algorithm is
+   `test/helpers/calibration/derive-thresholds.ts`; the method is documented in
+   `docs/calibration.md`. Until the first real Jev run, the bootstrap pair
+   `{ pass: 0.8, fail: 0.5 }` remains.
 5. **Node-level validation:** closed by `node-validation` —
    `SemanticSchema.node(path).safeParse(value, options)` reuses the effective context stored at
    `define`.

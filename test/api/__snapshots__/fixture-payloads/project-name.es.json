@@ -1,0 +1,15 @@
+{
+  "questions": {
+    "projectName": {
+      "instructions": "Does `projectName` fit the following description? A plausible project name",
+      "type": "noul",
+    },
+  },
+  "state": {
+    "context": {
+      "domain": "enterprise software",
+      "purpose": "Name of an internal software project",
+    },
+    "projectName": "EDcheck",
+  },
+}

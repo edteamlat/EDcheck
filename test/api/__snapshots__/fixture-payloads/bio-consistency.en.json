@@ -1,0 +1,13 @@
+{
+  "questions": {
+    "name+occupation+bio": {
+      "instructions": "Is the following statement true about `name`, `occupation` and `bio`? The biography is consistent with the supplied name and occupation",
+      "type": "noul",
+    },
+  },
+  "state": {
+    "bio": "Ana Pérez is a software engineer in Madrid who builds TypeScript APIs.",
+    "name": "Ana Pérez",
+    "occupation": "Software engineer",
+  },
+}

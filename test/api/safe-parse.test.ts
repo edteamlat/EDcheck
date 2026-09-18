@@ -10,6 +10,8 @@ import {
 
 import esFullName from "../fixtures/full-name/es.json";
 
+const firstPositiveName = esFullName.cases.find((item) => item.expect === "positive")?.value;
+
 const nameRule = semantic("A plausible full name for a real person");
 const bioRule = semantic({
   intent: "Meaningful professional biography",
@@ -151,7 +153,7 @@ describe("question template", () => {
       z.object({ fullName: z.string(), bio: z.string() }),
       { rules: { fullName: nameRule, bio: bioRule } },
     );
-    await bound.safeParse({ fullName: esFullName.positive[0], bio: "Ingeniera de software" });
+    await bound.safeParse({ fullName: firstPositiveName, bio: "Ingeniera de software" });
     expect(provider.calls[0]).toMatchSnapshot();
   });
 });
@@ -203,7 +205,10 @@ describe("rule ids and ordering", () => {
 describe("semantic issue shape", () => {
   it("fully populates a fail issue", async () => {
     const provider = mockProvider({ answers: { fullName: 0.12 }, model: "mock" });
-    const bound = createEDcheck({ provider }).define(z.object({ fullName: z.string() }), {
+    const bound = createEDcheck({
+      provider,
+      thresholds: { pass: 0.8, fail: 0.5 },
+    }).define(z.object({ fullName: z.string() }), {
       rules: { fullName: nameRule },
     });
     const result = await bound.safeParse({ fullName: "asdfasdf" });
@@ -269,9 +274,11 @@ describe("semantic issue shape", () => {
 });
 
 describe("default thresholds", () => {
-  it("exports the frozen provisional constant", () => {
-    expect(DEFAULT_THRESHOLDS).toEqual({ pass: 0.8, fail: 0.5 });
+  it("exports the frozen default constant", () => {
     expect(Object.isFrozen(DEFAULT_THRESHOLDS)).toBe(true);
+    expect(DEFAULT_THRESHOLDS.fail).toBeGreaterThan(0);
+    expect(DEFAULT_THRESHOLDS.fail).toBeLessThanOrEqual(DEFAULT_THRESHOLDS.pass);
+    expect(DEFAULT_THRESHOLDS.pass).toBeLessThan(1);
   });
 
   it("applies defaults when nothing overrides", async () => {
@@ -280,7 +287,7 @@ describe("default thresholds", () => {
       rules: { fullName: nameRule },
     });
     const result = await bound.safeParse({ fullName: "x" });
-    expect(result.issues[0]?.thresholds).toEqual({ pass: 0.8, fail: 0.5 });
+    expect(result.issues[0]?.thresholds).toEqual(DEFAULT_THRESHOLDS);
   });
 });
 
