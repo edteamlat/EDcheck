@@ -89,6 +89,30 @@ replaced by fixture-backed defaults in a later change.
 
 Precedence: rule > schema > instance > defaults.
 
+## Score rules
+
+Use a Noul rule when the question is yes/no. Use a Score rule when the value sits on an ordered
+scale and each level should map to its own outcome:
+
+```ts
+semantic({
+  kind: "score",
+  intent: "How well does the description explain the software project?",
+  levels: [
+    { label: "meaningless", description: "Random, spam-like or unrelated text", outcome: "fail" },
+    { label: "vague", description: "On topic but too vague to act on", outcome: "warning" },
+    { label: "clear", description: "Explains what to build or which problem to solve", outcome: "pass" },
+  ],
+});
+```
+
+The winning level is the highest probability (ties take the lowest index). If `confidence` is
+below `minConfidence`, the outcome becomes `warning` even when that level was a pass or a fail.
+
+`minConfidence` precedence is rule > schema > instance > `DEFAULT_MIN_CONFIDENCE` (`0.6`,
+provisional until `evaluation-harness` calibrates it). Score issues carry `score`, `confidence`,
+`level` and `minConfidence`; they never carry `probability` or `thresholds`.
+
 ## Failure policy
 
 If the provider is down, times out, or returns a malformed response:

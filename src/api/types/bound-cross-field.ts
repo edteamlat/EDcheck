@@ -11,6 +11,7 @@ export type BoundCrossField = {
   rule: SemanticRule;
   ruleId: string;
   thresholds: Thresholds;
+  minConfidence: number;
   effectiveContext: EffectiveContext;
   groupKey: string;
 };

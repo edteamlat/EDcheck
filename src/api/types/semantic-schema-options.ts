@@ -13,6 +13,7 @@ export type SemanticSchemaOptions<S extends ZodObject> = {
   rules: Partial<Record<FieldPath<output<S>>, SemanticRule>>;
   crossField?: readonly CrossFieldBinding<output<S>>[];
   thresholds?: Partial<Thresholds>;
+  minConfidence?: number;
   policy?: FailurePolicy;
   context?: Context;
   nodeContext?: Partial<Record<NodePath<output<S>>, Context>>;

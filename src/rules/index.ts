@@ -1,4 +1,10 @@
 export { semantic } from "./semantic.ts";
+export type { NoulRule } from "./types/noul-rule.ts";
+export type { NoulRuleOptions } from "./types/noul-rule-options.ts";
+export type { RuleKind } from "./types/rule-kind.ts";
+export type { ScoreLevel, ScoreLevelInput } from "./types/score-level.ts";
+export type { ScoreRule } from "./types/score-rule.ts";
+export type { ScoreRuleOptions } from "./types/score-rule-options.ts";
 export type { SemanticRule } from "./types/semantic-rule.ts";
 export type { SemanticRuleOptions } from "./types/semantic-rule-options.ts";
 export type { Severity } from "./types/severity.ts";

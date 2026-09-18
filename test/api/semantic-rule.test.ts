@@ -103,3 +103,201 @@ describe("semantic() immutability", () => {
     }).toThrow();
   });
 });
+
+describe("rule kind discriminator", () => {
+  it("defaults kind to noul", () => {
+    expect(semantic({ intent: "A name" }).kind).toBe("noul");
+  });
+
+  it("rejects an unknown kind", () => {
+    expect(() => semantic({ intent: "A name", kind: "choice" } as never)).toThrowError(
+      expect.objectContaining({ name: "EDcheckConfigError", code: "invalid_option" }),
+    );
+  });
+
+  it("rejects score options on a noul rule", () => {
+    expect(() =>
+      semantic({
+        intent: "A name",
+        levels: [
+          { label: "a", outcome: "fail" },
+          { label: "b", outcome: "pass" },
+        ],
+      } as never),
+    ).toThrowError(expect.objectContaining({ code: "invalid_option" }));
+    expect(() => semantic({ intent: "A name", minConfidence: 0.5 } as never)).toThrowError(
+      expect.objectContaining({ code: "invalid_option" }),
+    );
+  });
+
+  it("rejects noul options on a score rule", () => {
+    const levels = [
+      { label: "a", outcome: "fail" as const },
+      { label: "b", outcome: "pass" as const },
+    ];
+    expect(() =>
+      semantic({ kind: "score", intent: "Scale", levels, thresholds: { pass: 0.9 } } as never),
+    ).toThrowError(expect.objectContaining({ code: "invalid_option" }));
+    expect(() =>
+      semantic({ kind: "score", intent: "Scale", levels, valid: "x" } as never),
+    ).toThrowError(expect.objectContaining({ code: "invalid_option" }));
+    expect(() =>
+      semantic({ kind: "score", intent: "Scale", levels, invalid: "y" } as never),
+    ).toThrowError(expect.objectContaining({ code: "invalid_option" }));
+  });
+});
+
+describe("score rule options", () => {
+  it("creates a valid frozen score rule", () => {
+    const rule = semantic({
+      kind: "score",
+      intent: "How clear is the description?",
+      levels: [
+        { label: "meaningless", description: "Random text", outcome: "fail" },
+        { label: "vague", outcome: "warning" },
+        { label: "clear", outcome: "pass" },
+      ],
+      minConfidence: 0.7,
+    });
+    expect(rule.kind).toBe("score");
+    expect(rule.levels).toHaveLength(3);
+    expect(rule.levels[1]?.description).toBe("vague");
+    expect(rule.minConfidence).toBe(0.7);
+    expect(rule.severity).toBe("error");
+    expect(Object.isFrozen(rule)).toBe(true);
+    expect(Object.isFrozen(rule.levels)).toBe(true);
+  });
+
+  it("rejects fewer than two levels", () => {
+    expect(() =>
+      semantic({
+        kind: "score",
+        intent: "Scale",
+        levels: [{ label: "only", outcome: "pass" }],
+      } as never),
+    ).toThrowError(expect.objectContaining({ code: "invalid_rule" }));
+    expect(() =>
+      semantic({ kind: "score", intent: "Scale", levels: [] } as never),
+    ).toThrowError(expect.objectContaining({ code: "invalid_rule" }));
+  });
+
+  it("rejects duplicate labels", () => {
+    expect(() =>
+      semantic({
+        kind: "score",
+        intent: "Scale",
+        levels: [
+          { label: "ok", outcome: "fail" },
+          { label: "ok", outcome: "pass" },
+        ],
+      }),
+    ).toThrowError(expect.objectContaining({ code: "invalid_rule" }));
+  });
+
+  it("rejects an empty label or description", () => {
+    expect(() =>
+      semantic({
+        kind: "score",
+        intent: "Scale",
+        levels: [
+          { label: " ", outcome: "fail" },
+          { label: "ok", outcome: "pass" },
+        ],
+      }),
+    ).toThrowError(expect.objectContaining({ code: "invalid_rule" }));
+    expect(() =>
+      semantic({
+        kind: "score",
+        intent: "Scale",
+        levels: [
+          { label: "bad", description: "", outcome: "fail" },
+          { label: "ok", outcome: "pass" },
+        ],
+      }),
+    ).toThrowError(expect.objectContaining({ code: "invalid_rule" }));
+  });
+
+  it("rejects a missing or unknown level outcome", () => {
+    expect(() =>
+      semantic({
+        kind: "score",
+        intent: "Scale",
+        levels: [{ label: "a" }, { label: "b", outcome: "pass" }],
+      } as never),
+    ).toThrowError(expect.objectContaining({ code: "invalid_rule" }));
+    expect(() =>
+      semantic({
+        kind: "score",
+        intent: "Scale",
+        levels: [
+          { label: "a", outcome: "block" },
+          { label: "b", outcome: "pass" },
+        ],
+      } as never),
+    ).toThrowError(expect.objectContaining({ code: "invalid_option" }));
+  });
+
+  it("rejects minConfidence out of range", () => {
+    expect(() =>
+      semantic({
+        kind: "score",
+        intent: "Scale",
+        levels: [
+          { label: "a", outcome: "fail" },
+          { label: "b", outcome: "pass" },
+        ],
+        minConfidence: 1.2,
+      }),
+    ).toThrowError(expect.objectContaining({ code: "invalid_confidence" }));
+    expect(() =>
+      semantic({
+        kind: "score",
+        intent: "Scale",
+        levels: [
+          { label: "a", outcome: "fail" },
+          { label: "b", outcome: "pass" },
+        ],
+        minConfidence: -0.1,
+      }),
+    ).toThrowError(expect.objectContaining({ code: "invalid_confidence" }));
+  });
+
+  it("accepts minConfidence boundaries", () => {
+    expect(
+      semantic({
+        kind: "score",
+        intent: "Scale",
+        levels: [
+          { label: "a", outcome: "fail" },
+          { label: "b", outcome: "pass" },
+        ],
+        minConfidence: 0,
+      }).minConfidence,
+    ).toBe(0);
+    expect(
+      semantic({
+        kind: "score",
+        intent: "Scale",
+        levels: [
+          { label: "a", outcome: "fail" },
+          { label: "b", outcome: "pass" },
+        ],
+        minConfidence: 1,
+      }).minConfidence,
+    ).toBe(1);
+  });
+
+  it("copies levels so later mutation does not affect the rule", () => {
+    const levels: Array<{ label: string; outcome: "fail" | "pass" }> = [
+      { label: "a", outcome: "fail" },
+      { label: "b", outcome: "pass" },
+    ];
+    const rule = semantic({
+      kind: "score",
+      intent: "Scale",
+      levels: [levels[0]!, levels[1]!],
+    });
+    levels.push({ label: "c", outcome: "pass" });
+    expect(rule.levels).toHaveLength(2);
+  });
+});

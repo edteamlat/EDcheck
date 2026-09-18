@@ -1,8 +1,12 @@
+export { DEFAULT_MIN_CONFIDENCE } from "./default-min-confidence.ts";
 export { DEFAULT_THRESHOLDS } from "./default-thresholds.ts";
 export { mapProbabilityToOutcome } from "./map-probability-to-outcome.ts";
+export { mapScoreToOutcome } from "./map-score-to-outcome.ts";
+export { resolveMinConfidence } from "./resolve-min-confidence.ts";
 export { resolveSeverity } from "./resolve-severity.ts";
 export { resolveThresholds } from "./resolve-thresholds.ts";
 export { validateThresholds } from "./validate-thresholds.ts";
 export type { FailurePolicy } from "./types/failure-policy.ts";
 export type { Outcome } from "./types/outcome.ts";
+export type { ScoreOutcome } from "./types/score-outcome.ts";
 export type { Thresholds } from "./types/thresholds.ts";

@@ -11,6 +11,7 @@ export type BoundRule = {
   ruleId: string;
   node: ZodType;
   thresholds: Thresholds;
+  minConfidence: number;
   effectiveContext: EffectiveContext;
   groupKey: string;
 };

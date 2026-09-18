@@ -69,10 +69,7 @@ export async function runSafeParse<S extends ZodObject>(input: {
       groups.map(async (group) => {
         const request = compileRequest(group);
         const response = await input.provider.evaluate(request, { signal: combined.signal });
-        assertCompleteResponse(response, [
-          ...group.rules.map((rule) => rule.ruleId),
-          ...group.crossField.map((binding) => binding.ruleId),
-        ]);
+        assertCompleteResponse(response, request.questions);
         return mapSemanticIssues(group.rules, response, group.crossField);
       }),
     );

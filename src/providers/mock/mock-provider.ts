@@ -3,7 +3,8 @@ import type { SemanticRequest } from "../types/semantic-request.ts";
 import type { SemanticResponse } from "../types/semantic-response.ts";
 
 import { delayUntil } from "../../shared/delay-until.ts";
-import { resolveMockAnswer } from "./resolve-mock-answer.ts";
+import { answerScoreQuestion } from "./answer-score-question.ts";
+import { lookupMockAnswer } from "./lookup-mock-answer.ts";
 import type { MockProvider } from "./types/mock-provider.ts";
 import type { MockProviderOptions } from "./types/mock-provider-options.ts";
 
@@ -31,9 +32,17 @@ export function mockProvider(options: MockProviderOptions = {}): MockProvider {
       }
       const answers: Record<string, SemanticAnswer> = {};
       for (const [id, question] of Object.entries(request.questions)) {
+        const configured = lookupMockAnswer(options.answers, question, id);
+        if (question.type === "score") {
+          answers[id] = answerScoreQuestion(question, configured);
+          continue;
+        }
+        if (configured !== undefined && typeof configured !== "number") {
+          throw new Error("Noul questions require a numeric mock answer.");
+        }
         answers[id] = {
           type: "noul",
-          noul: resolveMockAnswer(options.answers, question, id, defaultAnswer),
+          noul: configured ?? defaultAnswer,
         };
       }
       return { model, answers };

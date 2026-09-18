@@ -1,5 +1,6 @@
 export { buildCrossFieldQuestion } from "./build-cross-field-question.ts";
 export { buildQuestion } from "./build-question.ts";
+export { buildScoreQuestion } from "./build-score-question.ts";
 export { buildState } from "./build-state.ts";
 export { compileRequest } from "./compile-request.ts";
 export { CROSS_FIELD_QUESTION_TEMPLATE } from "./cross-field-question-template.ts";

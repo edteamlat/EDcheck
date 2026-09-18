@@ -1,9 +1,13 @@
 import type { SemanticQuestion } from "../providers/types/semantic-question.ts";
 import type { SemanticRule } from "../rules/types/semantic-rule.ts";
 
+import { buildScoreQuestion } from "./build-score-question.ts";
 import { QUESTION_TEMPLATE } from "./question-template.ts";
 
 export function buildQuestion(dottedPath: string, rule: SemanticRule): SemanticQuestion {
+  if (rule.kind === "score") {
+    return buildScoreQuestion(dottedPath, rule);
+  }
   const instructions = QUESTION_TEMPLATE.replace("{path}", dottedPath).replace(
     "{intent}",
     rule.intent,

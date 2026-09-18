@@ -1,8 +1,4 @@
-export type SemanticQuestion = {
-  type: "noul";
-  instructions: string;
-  criteria?: {
-    true?: string;
-    false?: string;
-  };
-};
+import type { NoulQuestion } from "./noul-question.ts";
+import type { ScoreQuestion } from "./score-question.ts";
+
+export type SemanticQuestion = NoulQuestion | ScoreQuestion;

@@ -13,6 +13,8 @@ export type Issue = {
   probability?: number;
   score?: number;
   confidence?: number;
+  level?: string;
+  minConfidence?: number;
   thresholds?: Thresholds;
   provider?: IssueProvider;
   paths?: Array<Array<string | number>>;

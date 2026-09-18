@@ -8,5 +8,6 @@ export type EDcheckOptions = {
   timeoutMs?: number;
   policy?: FailurePolicy;
   thresholds?: Partial<Thresholds>;
+  minConfidence?: number;
   context?: Context;
 };

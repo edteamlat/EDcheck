@@ -8,5 +8,6 @@ export type InstanceConfig = {
   timeoutMs: number;
   policy: FailurePolicy;
   thresholds: Partial<Thresholds>;
+  minConfidence?: number;
   context: ContextObject;
 };

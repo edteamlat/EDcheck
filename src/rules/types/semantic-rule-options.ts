@@ -1,14 +1,4 @@
-import type { Context } from "../../context/types/context.ts";
-import type { Thresholds } from "../../policy/types/thresholds.ts";
-import type { Severity } from "./severity.ts";
+import type { NoulRuleOptions } from "./noul-rule-options.ts";
+import type { ScoreRuleOptions } from "./score-rule-options.ts";
 
-export type SemanticRuleOptions = {
-  intent: string;
-  valid?: string;
-  invalid?: string;
-  thresholds?: Partial<Thresholds>;
-  severity?: Severity;
-  message?: string;
-  id?: string;
-  context?: Context;
-};
+export type SemanticRuleOptions = NoulRuleOptions | ScoreRuleOptions;

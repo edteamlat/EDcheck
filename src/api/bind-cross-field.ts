@@ -2,6 +2,7 @@ import type { ZodType } from "zod";
 
 import type { ContextObject } from "../context/types/context-object.ts";
 import { EDcheckConfigError } from "../errors/edcheck-config-error.ts";
+import { resolveMinConfidence } from "../policy/resolve-min-confidence.ts";
 import { resolveThresholds } from "../policy/resolve-thresholds.ts";
 import type { Thresholds } from "../policy/types/thresholds.ts";
 import type { SemanticRule } from "../rules/types/semantic-rule.ts";
@@ -22,6 +23,7 @@ export function bindCrossField(
     instance: InstanceConfig;
     schemaContext: ContextObject | undefined;
     schemaThresholds: Partial<Thresholds> | undefined;
+    schemaMinConfidence: number | undefined;
   },
 ): BoundCrossField {
   if (binding.rule === undefined) {
@@ -75,7 +77,12 @@ export function bindCrossField(
     thresholds: resolveThresholds({
       instance: input.instance.thresholds,
       schema: input.schemaThresholds,
-      rule: binding.rule.thresholds,
+      rule: binding.rule.kind === "noul" ? binding.rule.thresholds : undefined,
+    }),
+    minConfidence: resolveMinConfidence({
+      rule: binding.rule.kind === "score" ? binding.rule.minConfidence : undefined,
+      schema: input.schemaMinConfidence,
+      instance: input.instance.minConfidence,
     }),
     effectiveContext: context,
     groupKey,

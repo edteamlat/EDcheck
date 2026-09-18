@@ -3,8 +3,10 @@ import type { ZodObject } from "zod";
 import { normalizeContext } from "../context/normalize-context.ts";
 import type { ContextObject } from "../context/types/context-object.ts";
 import { EDcheckConfigError } from "../errors/edcheck-config-error.ts";
+import { resolveMinConfidence } from "../policy/resolve-min-confidence.ts";
 import { resolveThresholds } from "../policy/resolve-thresholds.ts";
 import type { FailurePolicy } from "../policy/types/failure-policy.ts";
+import { validateMinConfidence } from "../policy/validate-min-confidence.ts";
 import type { SemanticRule } from "../rules/types/semantic-rule.ts";
 import { isReservedPath } from "../schema/is-reserved-path.ts";
 import { resolveNode } from "../schema/resolve-node.ts";
@@ -41,6 +43,9 @@ export function defineSemanticSchema<S extends ZodObject>(
     );
   }
   resolveThresholds({ instance: instance.thresholds, schema: options.thresholds });
+  if (options.minConfidence !== undefined) {
+    validateMinConfidence(options.minConfidence);
+  }
 
   const schemaContext: ContextObject | undefined =
     options.context === undefined ? undefined : normalizeContext(options.context);
@@ -73,7 +78,12 @@ export function defineSemanticSchema<S extends ZodObject>(
     const thresholds = resolveThresholds({
       instance: instance.thresholds,
       schema: options.thresholds,
-      rule: rule.thresholds,
+      rule: rule.kind === "noul" ? rule.thresholds : undefined,
+    });
+    const minConfidence = resolveMinConfidence({
+      rule: rule.kind === "score" ? rule.minConfidence : undefined,
+      schema: options.minConfidence,
+      instance: instance.minConfidence,
     });
     const levels: ContextObject[] = [instance.context];
     if (schemaContext !== undefined) {
@@ -91,6 +101,7 @@ export function defineSemanticSchema<S extends ZodObject>(
       ruleId,
       node: resolved.node,
       thresholds,
+      minConfidence,
       effectiveContext: context,
       groupKey,
     });
@@ -104,6 +115,7 @@ export function defineSemanticSchema<S extends ZodObject>(
         instance,
         schemaContext,
         schemaThresholds: options.thresholds,
+        schemaMinConfidence: options.minConfidence,
       }),
     );
   }

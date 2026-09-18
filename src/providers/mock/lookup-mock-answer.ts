@@ -1,17 +1,18 @@
 import type { SemanticQuestion } from "../types/semantic-question.ts";
+
+import type { MockAnswer } from "./types/mock-answer.ts";
 import type { MockAnswers } from "./types/mock-provider-options.ts";
 
-export function resolveMockAnswer(
+export function lookupMockAnswer(
   answers: MockAnswers | undefined,
   question: SemanticQuestion,
   id: string,
-  defaultAnswer: number,
-): number {
+): MockAnswer | undefined {
   if (answers === undefined) {
-    return defaultAnswer;
+    return undefined;
   }
   if (typeof answers === "function") {
     return answers(question, id);
   }
-  return answers[id] ?? defaultAnswer;
+  return answers[id];
 }

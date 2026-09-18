@@ -24,5 +24,5 @@ export async function readTypesafeSuccess(
       throw new EDcheckProviderError("malformed_response");
     }
   }
-  return mapTypesafeResponse(parsed.data);
+  return mapTypesafeResponse(parsed.data, request);
 }

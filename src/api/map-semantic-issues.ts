@@ -1,6 +1,8 @@
 import { mapProbabilityToOutcome } from "../policy/map-probability-to-outcome.ts";
+import { mapScoreToOutcome } from "../policy/map-score-to-outcome.ts";
 import { resolveSeverity } from "../policy/resolve-severity.ts";
 import type { SemanticResponse } from "../providers/types/semantic-response.ts";
+import { scoreIssue } from "../result/score-issue.ts";
 import { semanticIssue } from "../result/semantic-issue.ts";
 import type { Issue } from "../result/types/issue.ts";
 
@@ -41,6 +43,34 @@ function issueFromAnswer(
 ): Issue | undefined {
   const answer = response.answers[ruleId];
   if (answer === undefined) {
+    return undefined;
+  }
+  if (item.rule.kind === "score" && answer.type === "score") {
+    const mapped = mapScoreToOutcome({
+      probabilities: answer.probabilities,
+      confidence: answer.confidence,
+      outcomes: item.rule.levels.map((level) => level.outcome),
+      minConfidence: item.minConfidence,
+    });
+    if (mapped.outcome === "pass") {
+      return undefined;
+    }
+    const level = item.rule.levels[mapped.levelIndex];
+    return scoreIssue({
+      path,
+      severity: resolveSeverity(mapped.outcome, item.rule.severity),
+      outcome: mapped.outcome,
+      ruleId,
+      score: answer.score,
+      confidence: answer.confidence,
+      level: level?.label ?? "",
+      minConfidence: item.minConfidence,
+      model: response.model,
+      ...(item.rule.message !== undefined ? { message: item.rule.message } : {}),
+      ...(paths === undefined ? {} : { paths }),
+    });
+  }
+  if (answer.type !== "noul") {
     return undefined;
   }
   const outcome = mapProbabilityToOutcome(answer.noul, item.thresholds);

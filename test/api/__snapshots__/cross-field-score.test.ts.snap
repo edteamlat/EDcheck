@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`cross-field score binding > matches the compiled payload snapshot 1`] = `
+{
+  "questions": {
+    "age_occupation_score": {
+      "criteria": [
+        "The occupation cannot match the age",
+        "The pair is possible but strained",
+        "The occupation is plausible for the age",
+      ],
+      "instructions": "Rate \`age\` and \`occupation\` on this scale: How well do age and occupation fit together?",
+      "type": "score",
+    },
+  },
+  "state": {
+    "age": 35,
+    "occupation": "Software engineer",
+  },
+}
+`;

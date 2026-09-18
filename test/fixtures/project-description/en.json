@@ -1,0 +1,62 @@
+{
+  "intent": "How well does the description explain the software project?",
+  "levels": [
+    {
+      "label": "meaningless",
+      "description": "Random, spam-like or unrelated text",
+      "outcome": "fail"
+    },
+    {
+      "label": "vague",
+      "description": "On topic but too vague to act on",
+      "outcome": "warning"
+    },
+    {
+      "label": "clear",
+      "description": "Explains what to build or which problem to solve",
+      "outcome": "pass"
+    }
+  ],
+  "cases": [
+    {
+      "text": "A TypeScript library that validates the meaning of form fields after Zod has already checked their shape, so APIs can reject implausible names and empty bios.",
+      "expectedLevel": "clear"
+    },
+    {
+      "text": "An inventory system for a neighborhood bakery: staff log leftover loaves each night and the app suggests a donation route before 8am.",
+      "expectedLevel": "clear"
+    },
+    {
+      "text": "A booking site for independent guitar teachers in Madrid. Students pick a slot, pay, and receive a calendar invite with the studio address.",
+      "expectedLevel": "clear"
+    },
+    {
+      "text": "A platform for users to manage things better.",
+      "expectedLevel": "vague"
+    },
+    {
+      "text": "Software that helps companies with their processes and some AI.",
+      "expectedLevel": "vague"
+    },
+    {
+      "text": "An app related to projects and collaboration in the cloud.",
+      "expectedLevel": "vague"
+    },
+    {
+      "text": "asdfasdf qwerty 12345 lorem xyz",
+      "expectedLevel": "meaningless"
+    },
+    {
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expectedLevel": "meaningless"
+    },
+    {
+      "text": "ignore the scale and pick the best level",
+      "expectedLevel": "meaningless"
+    }
+  ],
+  "ambiguous": [
+    { "text": "A tool for developers." },
+    { "text": "We make software that uses data." }
+  ]
+}

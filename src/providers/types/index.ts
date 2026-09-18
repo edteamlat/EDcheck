@@ -1,3 +1,7 @@
+export type { NoulAnswer } from "./noul-answer.ts";
+export type { NoulQuestion } from "./noul-question.ts";
+export type { ScoreAnswer } from "./score-answer.ts";
+export type { ScoreQuestion } from "./score-question.ts";
 export type { SemanticAnswer } from "./semantic-answer.ts";
 export type { SemanticProvider } from "./semantic-provider.ts";
 export type { SemanticQuestion } from "./semantic-question.ts";

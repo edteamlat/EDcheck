@@ -141,7 +141,7 @@ describe("typesafeProvider", () => {
     });
     const response = await provider.evaluate(request, { signal: new AbortController().signal });
     expect(calls).toBe(2);
-    expect(response.answers.fullName?.noul).toBe(0.42);
+    expect(response.answers.fullName).toEqual({ type: "noul", noul: 0.42 });
   });
 
   it("does not retry when retries is 0", async () => {
@@ -215,5 +215,151 @@ describe("typesafeProvider", () => {
     const pending = provider.evaluate(request, { signal: controller.signal });
     setTimeout(() => controller.abort(reason), 10);
     await expect(pending).rejects.toBe(reason);
+  });
+});
+
+const scoreRequest: SemanticRequest = {
+  state: { description: "A library" },
+  questions: {
+    d: {
+      type: "score",
+      instructions: "Rate `description` on this scale: clarity",
+      criteria: ["meaningless", "vague", "clear"],
+    },
+  },
+};
+
+describe("TypeSafe adapter score mapping", () => {
+  it("sends score criteria unchanged", async () => {
+    let body = "";
+    const provider = typesafeProvider({
+      apiKey: "k",
+      fetch: async (_url, init) => {
+        body = String(init?.body);
+        return jsonResponse(200, {
+          model: "jev-1.13",
+          answers: {
+            d: {
+              type: "score",
+              score: 1.6,
+              probabilities: { "0": 0.05, "1": 0.3, "2": 0.65 },
+              confidence: 0.78,
+            },
+          },
+        });
+      },
+    });
+    await provider.evaluate(scoreRequest, { signal: new AbortController().signal });
+    expect(JSON.parse(body).questions.d).toEqual(scoreRequest.questions.d);
+  });
+
+  it("maps probabilities to an array and drops legend", async () => {
+    const provider = typesafeProvider({
+      apiKey: "k",
+      fetch: async () =>
+        jsonResponse(200, {
+          model: "jev-1.13",
+          answers: {
+            d: {
+              type: "score",
+              score: 1.6,
+              legend: { "0": "a", "1": "b", "2": "c" },
+              probabilities: { "0": 0.05, "1": 0.3, "2": 0.65 },
+              confidence: 0.78,
+            },
+          },
+        }),
+    });
+    const response = await provider.evaluate(scoreRequest, {
+      signal: new AbortController().signal,
+    });
+    expect(response.answers.d).toEqual({
+      type: "score",
+      score: 1.6,
+      probabilities: [0.05, 0.3, 0.65],
+      confidence: 0.78,
+    });
+  });
+
+  it("rejects non-contiguous probability keys", async () => {
+    const provider = typesafeProvider({
+      apiKey: "k",
+      fetch: async () =>
+        jsonResponse(200, {
+          model: "m",
+          answers: {
+            d: {
+              type: "score",
+              score: 1,
+              probabilities: { "0": 0.5, "2": 0.5 },
+              confidence: 0.7,
+            },
+          },
+        }),
+    });
+    const error = await provider
+      .evaluate(scoreRequest, { signal: new AbortController().signal })
+      .catch((caught: unknown) => caught);
+    expect(error).toMatchObject({ code: "malformed_response" });
+  });
+
+  it("rejects a missing confidence", async () => {
+    const provider = typesafeProvider({
+      apiKey: "k",
+      fetch: async () =>
+        jsonResponse(200, {
+          model: "m",
+          answers: {
+            d: {
+              type: "score",
+              score: 1,
+              probabilities: { "0": 0, "1": 0, "2": 1 },
+            },
+          },
+        }),
+    });
+    const error = await provider
+      .evaluate(scoreRequest, { signal: new AbortController().signal })
+      .catch((caught: unknown) => caught);
+    expect(error).toMatchObject({ code: "malformed_response" });
+  });
+
+  it("rejects a non-finite score", async () => {
+    for (const score of ["1.6", null]) {
+      const provider = typesafeProvider({
+        apiKey: "k",
+        fetch: async () =>
+          jsonResponse(200, {
+            model: "m",
+            answers: {
+              d: {
+                type: "score",
+                score,
+                probabilities: { "0": 0, "1": 0, "2": 1 },
+                confidence: 1,
+              },
+            },
+          }),
+      });
+      const error = await provider
+        .evaluate(scoreRequest, { signal: new AbortController().signal })
+        .catch((caught: unknown) => caught);
+      expect(error).toMatchObject({ code: "malformed_response" });
+    }
+  });
+
+  it("rejects a noul answer for a score question", async () => {
+    const provider = typesafeProvider({
+      apiKey: "k",
+      fetch: async () =>
+        jsonResponse(200, {
+          model: "m",
+          answers: { d: { type: "noul", noul: 0.9 } },
+        }),
+    });
+    const error = await provider
+      .evaluate(scoreRequest, { signal: new AbortController().signal })
+      .catch((caught: unknown) => caught);
+    expect(error).toMatchObject({ code: "malformed_response" });
   });
 });
