@@ -13,6 +13,7 @@ export function semanticIssue(input: {
   thresholds: Thresholds;
   model: string;
   message?: string;
+  paths?: ReadonlyArray<ReadonlyArray<string | number>>;
 }): Issue {
   const issue: Issue = {
     path: input.path,
@@ -25,5 +26,8 @@ export function semanticIssue(input: {
     thresholds: input.thresholds,
     provider: { model: input.model },
   };
+  if (input.paths !== undefined) {
+    issue.paths = input.paths.map((path) => [...path]);
+  }
   return issue;
 }

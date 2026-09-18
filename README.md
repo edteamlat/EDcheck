@@ -143,6 +143,36 @@ one request per group, each with only that group's fields. `locale` is data for 
 filter — it does not change instructions, criteria, or which rules run. The top-level state key
 `context` is reserved; a rule or `nodeContext` path starting with `context` is rejected.
 
+## Cross-field rules
+
+A field rule judges one value. Cross-field rules judge several declared paths together and still
+ride in the same provider request:
+
+```ts
+const PersonSemantic = edcheck.define(Person, {
+  rules: { fullName: semantic("A plausible full name for a real person") },
+  crossField: [
+    {
+      paths: ["age", "occupation"],
+      rule: semantic({
+        intent: "The `occupation` is plausible for someone of the given `age`",
+        invalid: "The `occupation` requires more years than the `age` allows",
+        id: "occupation_age_coherence",
+      }),
+    },
+  ],
+});
+```
+
+Backticked path-like tokens in `intent`, `valid` and `invalid` must be declared paths. An
+undeclared reference such as `` `salary` `` is `EDcheckConfigError` with code `unknown_reference`.
+Tokens with spaces or punctuation (`` `N/A` ``) are ignored.
+
+A warning or fail emits **one issue per declared path**, identical except for `path`. Every issue
+carries `paths` (all declared paths) and the same `ruleId` so forms can place the error and code
+can deduplicate. `undefined`/`null` on any declared path skips the rule without an issue. Arrays
+are out of v1: a declared path on or through `z.array` is rejected at `define`.
+
 ## Cancellation
 
 Every `safeParse` accepts `signal` and `timeoutMs`. A cancelled parse rejects with

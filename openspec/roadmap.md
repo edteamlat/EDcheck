@@ -52,8 +52,8 @@ Legend: `[ ]` not started · `[~]` proposed / in progress · `[x]` archived
 
 ### [~] 3. `cross-field-rules`
 
-- **Status:** proposed (2026-09-17) — artifacts in `openspec/changes/cross-field-rules/`.
-  Independent of change 2; apply after `bootstrap-mvp` is archived.
+- **Status:** applied (2026-09-17) — implementation complete in `src/`. Next:
+  `/opsx:archive cross-field-rules` after `bootstrap-mvp` is archived.
 - **Kickoff:** `/opsx:propose cross-field-rules`
 - **Delivers:** rules attached to the containing object with declared `paths`, state restricted
   to those paths, issues attributed to every declared path, backtick field references in

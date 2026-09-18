@@ -15,4 +15,5 @@ export type Issue = {
   confidence?: number;
   thresholds?: Thresholds;
   provider?: IssueProvider;
+  paths?: Array<Array<string | number>>;
 };

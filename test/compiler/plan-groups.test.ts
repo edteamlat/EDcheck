@@ -22,6 +22,7 @@ describe("planGroups", () => {
     const groups = planGroups([rule("a", "k"), rule("b", "k")]);
     expect(groups).toHaveLength(1);
     expect(groups[0]?.rules.map((item) => item.ruleId)).toEqual(["a", "b"]);
+    expect(groups[0]?.crossField).toEqual([]);
   });
 
   it("orders distinct groups by first declaration", () => {

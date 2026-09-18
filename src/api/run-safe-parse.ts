@@ -14,10 +14,12 @@ import { assertServerEnvironment } from "../shared/assert-server-environment.ts"
 import { combineSignals } from "../shared/combine-signals.ts";
 
 import { assertCompleteResponse } from "./assert-complete-response.ts";
+import { collectExecutableCrossFields } from "./collect-executable-cross-fields.ts";
 import { collectExecutableRules } from "./collect-executable-rules.ts";
 import { isTimeoutReason } from "./is-timeout-reason.ts";
 import { mapSemanticIssues } from "./map-semantic-issues.ts";
 import { toAbortError } from "./to-abort-error.ts";
+import type { BoundCrossField } from "./types/bound-cross-field.ts";
 import type { BoundRule } from "./types/bound-rule.ts";
 import { unavailableForRules } from "./unavailable-for-rules.ts";
 
@@ -25,6 +27,7 @@ export async function runSafeParse<S extends ZodObject>(input: {
   schema: S;
   data: unknown;
   boundRules: readonly BoundRule[];
+  boundCrossFields?: readonly BoundCrossField[];
   provider: SemanticProvider;
   timeoutMs: number;
   policy: FailurePolicy;
@@ -46,12 +49,19 @@ export async function runSafeParse<S extends ZodObject>(input: {
     parsed.success,
     invalidPrefixes,
   );
+  const executableCross = collectExecutableCrossFields(
+    input.boundCrossFields ?? [],
+    input.data,
+    shapeData,
+    parsed.success,
+    invalidPrefixes,
+  );
 
-  if (executable.length === 0) {
+  if (executable.length === 0 && executableCross.length === 0) {
     return assembleResult(shapeData, zodIssues, []);
   }
 
-  const groups = planGroups(executable);
+  const groups = planGroups(executable, executableCross);
   const signals = input.signal === undefined ? [] : [input.signal];
   const combined = combineSignals(signals, { timeoutMs: input.timeoutMs });
   try {
@@ -59,11 +69,11 @@ export async function runSafeParse<S extends ZodObject>(input: {
       groups.map(async (group) => {
         const request = compileRequest(group);
         const response = await input.provider.evaluate(request, { signal: combined.signal });
-        assertCompleteResponse(
-          response,
-          group.rules.map((rule) => rule.ruleId),
-        );
-        return mapSemanticIssues(group.rules, response);
+        assertCompleteResponse(response, [
+          ...group.rules.map((rule) => rule.ruleId),
+          ...group.crossField.map((binding) => binding.ruleId),
+        ]);
+        return mapSemanticIssues(group.rules, response, group.crossField);
       }),
     );
     if (input.signal?.aborted) {
@@ -82,7 +92,9 @@ export async function runSafeParse<S extends ZodObject>(input: {
       if (error instanceof EDcheckProviderError || isTimeoutReason(error)) {
         const group = groups[index];
         if (group !== undefined) {
-          semanticIssues.push(...unavailableForRules(group.rules, input.policy));
+          semanticIssues.push(
+            ...unavailableForRules(group.rules, input.policy, group.crossField),
+          );
         }
         continue;
       }

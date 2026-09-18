@@ -12,6 +12,7 @@ export { typesafeProvider } from "./providers/typesafe/typesafe-provider.ts";
 export { semantic } from "./rules/semantic.ts";
 
 export type {
+  CrossFieldBinding,
   EDcheck,
   EDcheckOptions,
   FieldPath,

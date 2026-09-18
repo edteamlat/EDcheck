@@ -3,6 +3,7 @@ export { combineSignals } from "./combine-signals.ts";
 export { delayUntil } from "./delay-until.ts";
 export type { CombinedSignal } from "./types/combined-signal.ts";
 export { formatPath } from "./format-path.ts";
+export { formatPathList } from "./format-path-list.ts";
 export { getAtPath } from "./get-at-path.ts";
 export { isBrowserEnvironment } from "./is-browser-environment.ts";
 export { isPathPrefix } from "./is-path-prefix.ts";

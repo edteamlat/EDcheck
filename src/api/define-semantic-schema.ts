@@ -11,9 +11,11 @@ import { resolveNode } from "../schema/resolve-node.ts";
 import { parsePath } from "../shared/parse-path.ts";
 
 import { ancestorContexts } from "./ancestor-contexts.ts";
+import { bindCrossField } from "./bind-cross-field.ts";
 import { collectNodeContexts } from "./collect-node-contexts.ts";
 import { resolveEffectiveContext } from "./resolve-effective-context.ts";
 import { runSafeParse } from "./run-safe-parse.ts";
+import type { BoundCrossField } from "./types/bound-cross-field.ts";
 import type { BoundRule } from "./types/bound-rule.ts";
 import type { InstanceConfig } from "./types/instance-config.ts";
 import type { SemanticSchema } from "./types/semantic-schema.ts";
@@ -94,6 +96,18 @@ export function defineSemanticSchema<S extends ZodObject>(
     });
   }
 
+  const boundCrossFields: BoundCrossField[] = [];
+  for (const binding of options.crossField ?? []) {
+    boundCrossFields.push(
+      bindCrossField(schema, binding, {
+        seenIds,
+        instance,
+        schemaContext,
+        schemaThresholds: options.thresholds,
+      }),
+    );
+  }
+
   const policy = options.policy ?? instance.policy;
   return {
     schema,
@@ -102,6 +116,7 @@ export function defineSemanticSchema<S extends ZodObject>(
         schema,
         data,
         boundRules,
+        boundCrossFields,
         provider: instance.provider,
         timeoutMs: parseOptions?.timeoutMs ?? instance.timeoutMs,
         policy,

@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`cross-field question template > Snapshot for the PDR age/occupation rule 1`] = `
+{
+  "questions": {
+    "occupation_age_coherence": {
+      "criteria": {
+        "false": "The \`occupation\` requires more years than the \`age\` allows",
+      },
+      "instructions": "Is the following statement true about \`age\` and \`occupation\`? The \`occupation\` is plausible for someone of the given \`age\`",
+      "type": "noul",
+    },
+  },
+  "state": {
+    "age": 7,
+    "occupation": "Senior engineer, 15 years experience",
+  },
+}
+`;
