@@ -31,6 +31,16 @@ context: |
   Stack: TypeScript strict, Node >= 20, ESM + CJS (tsup), Vitest, ESLint + Prettier, Yarn.
   yarn verify = lint + typecheck + test + build. Conventional commits.
 
+  TDD is non-negotiable (§12.1): spec scenarios become failing tests before src/ code. Happy path
+  fixes the API; adverse cases (adversarial value, shape failure on one node, abort in flight,
+  provider down open/closed, context conflicts, nested array paths, empty/huge/emoji/RTL strings,
+  Zod passthrough, z.infer type test) are the DoD. Behavior tests go through the public entry;
+  the provider is the only mock; public surface and compiled Jev payloads are snapshotted.
+  test/** is offline and deterministic; test/eval/ hits real Jev with tolerance bands.
+
+  Change roadmap (§15): bootstrap-mvp → context-inheritance, cross-field-rules, score-rules,
+  gateway-provider, observability-hooks → node-validation → evaluation-harness.
+
   Language: everything in English (specs, docs, code, comments, commits).
   Jev facts (§7): Noul returns noul ∈ [0,1] with no confidence; Score returns score + confidence;
   many questions per request; 64k tokens state+questions; literal reading, weak at numbers/dates,
@@ -43,7 +53,8 @@ rules:
     - "If it touches the public API: list new/modified exported symbols"
     - "If it touches the provider: separate the SemanticProvider contract from concrete adapters"
   specs:
-    - "Given/When/Then for every scenario; English throughout"
+    - "Given/When/Then for every scenario; English throughout. Each scenario MUST be writable as one test"
+    - "Every capability needs at least one happy-path scenario plus the §12.1.3 adverse scenarios that apply"
     - "Every semantic rule MUST compile without interpolating the user value into instructions/criteria"
     - "Every async API MUST accept AbortSignal and MUST NOT emit cancelled results"
     - "If Zod shape fails on a node, its semantic rules MUST NOT execute"
@@ -53,9 +64,13 @@ rules:
     - "Respect the module map and import boundaries of constitution §11"
     - "New dependencies: justify; a TypeSafe-direct user must not pull in ai"
     - "Define public types with one type per file under types/"
-    - "Plan tests: unit with mock provider; eval against real Jev skippable without a key; es/en fixtures"
+    - "Test strategy section: which scenarios run through the public entry, which modules get direct unit tests and why, what gets snapshotted, which type tests exist"
+    - "The provider is the only mock. If the design needs another mock, redesign"
+    - "Eval against real Jev: fixtures es/en, tolerance bands, skippable without a key"
   tasks:
+    - "TDD pairs: every implementation task is preceded by a red-test task listing the spec scenarios it covers"
+    - "A red-test task MUST include the §12.1.3 adverse cases that apply, not only the happy path"
     - "Small, verifiable tasks; each ends with yarn verify green"
-    - "Include a test task per touched module and a fixtures task if there are new rules"
+    - "Include a fixtures task if there are new rules; include a snapshot-update task if compiled payloads change"
     - "Do not mix tooling scaffold with features in the same task"
-    - "Last task: update README and affected specs"
+    - "Last task: update README, public-surface test and affected specs"

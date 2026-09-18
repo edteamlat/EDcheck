@@ -25,10 +25,20 @@
 - The user value goes in `state`. Never inside `instructions` or `criteria`.
 - Every async API accepts `signal`. A cancelled result is never emitted.
 
-## Tests
+## Tests — TDD, non-negotiable (constitution §12.1)
 
-- Unit: `test/<module>/<file>.test.ts`, with the `mock` provider. No network.
-- Eval: `test/eval/`, against real Jev; skipped without `TYPESAFE_API_KEY` or `AI_GATEWAY_API_KEY`.
+- Red before green. Write the failing test for the spec scenario, then the code. No exceptions.
+- The happy path fixes the API. The adverse cases are the DoD: adversarial value, shape failure on
+  one node, abort in flight, provider down (`open`/`closed`), context conflicts, nested array
+  paths, empty/huge/emoji/RTL strings, Zod passthrough, `z.infer` type test.
+- Test behavior through the public entry (`test/api/`). Direct unit tests only for stable logic:
+  `context/` merge, `policy/` mapping, `shared/` paths.
+- The provider is the only mock. Needing another mock means the design is wrong.
+- Snapshot compiled Jev payloads. Assert the public surface against an explicit symbol list.
+- Type tests in `test/types/*.test-d.ts`.
+- Unit: `test/<module>/<file>.test.ts`, offline, deterministic, `mock` provider.
+- Eval: `test/eval/`, against real Jev with tolerance bands; skipped without `TYPESAFE_API_KEY`
+  or `AI_GATEWAY_API_KEY`. A failing eval means recalibration, not a broken build.
 - Fixtures: `test/fixtures/<rule>/{es,en}.json` with positive, negative and ambiguous cases.
 - DoD of every task: `yarn verify` green.
 
