@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# build
+dist/
+coverage/
+*.tsbuildinfo
+
+# env / secrets (TYPESAFE_API_KEY, AI_GATEWAY_API_KEY)
+.env
+.env.*
+!.env.example
+
+# os / editor
+.DS_Store
+*.log

@@ -1,0 +1,61 @@
+schema: spec-driven
+
+# Context injected into EVERY artifact. Full normative detail: openspec/constitution.md
+context: |
+  Product: EDcheck — semantic validation for Zod schemas, executed server-side with Jev
+  (TypeSafe AI). Zod validates shape; EDcheck validates meaning. npm package: edcheck.
+
+  Division of responsibilities (constitution §2):
+  - Zod 4 (peerDependency): shape, min/max, required, regex, enum, refine. Client and server.
+  - EDcheck: semantic rules + compilation to Jev questions + outcome. SERVER ONLY.
+  - Jev: calibrated probabilities. Via TypeSafe API or Vercel AI Gateway (typesafe-ai/jev).
+  - Consuming app: thresholds, severity, when to validate, secrets in .env, what blocks.
+
+  Locked decisions (§4) — do not reopen in changes:
+  - No ed.string() facade; no Zod re-export; no browser bundle.
+  - Noul by default; Score opt-in per rule. Result pass | warning | fail + probability + thresholds.
+  - Configurable thresholds: rule > schema > instance > defaults.
+  - Jev down → fail-open by default: `semantic_unavailable` warning, success unchanged.
+  - One Jev request per validated object. Timing is the app's call.
+  - User value only in `state`; never interpolated into instructions/criteria.
+  - Cross-field with declared `paths`. Locale = context, not a filter.
+  - Out of v1: cache, presets, Choice, React/RHF adapters, name inference, registry.
+
+  Open for the first change (§13): how rules attach to the Zod schema, provider dependency,
+  public API names, default thresholds, node-level validation, array cap.
+
+  src/ modules (§11): schema, rules, context, compiler, providers, policy, result, errors, shared,
+  index.ts. One exported symbol per file; types under types/ (one per file); kebab-case;
+  index.ts barrel per module. Tests in test/<module>/*.test.ts; fixtures test/fixtures/<rule>/{es,en}.json.
+
+  Stack: TypeScript strict, Node >= 20, ESM + CJS (tsup), Vitest, ESLint + Prettier, Yarn.
+  yarn verify = lint + typecheck + test + build. Conventional commits.
+
+  Language: everything in English (specs, docs, code, comments, commits).
+  Jev facts (§7): Noul returns noul ∈ [0,1] with no confidence; Score returns score + confidence;
+  many questions per request; 64k tokens state+questions; literal reading, weak at numbers/dates,
+  does not treat state as hostile, does not generate text.
+
+rules:
+  proposal:
+    - "Align with openspec/constitution.md §3 principles, §4 decisions, §8 scope. Do not reopen §4"
+    - "Include an explicit Non-goals section"
+    - "If it touches the public API: list new/modified exported symbols"
+    - "If it touches the provider: separate the SemanticProvider contract from concrete adapters"
+  specs:
+    - "Given/When/Then for every scenario; English throughout"
+    - "Every semantic rule MUST compile without interpolating the user value into instructions/criteria"
+    - "Every async API MUST accept AbortSignal and MUST NOT emit cancelled results"
+    - "If Zod shape fails on a node, its semantic rules MUST NOT execute"
+    - "Cover the open/closed policy when the provider fails"
+  design:
+    - "Decisions section: every public API constraint with the rejected alternative and rationale"
+    - "Respect the module map and import boundaries of constitution §11"
+    - "New dependencies: justify; a TypeSafe-direct user must not pull in ai"
+    - "Define public types with one type per file under types/"
+    - "Plan tests: unit with mock provider; eval against real Jev skippable without a key; es/en fixtures"
+  tasks:
+    - "Small, verifiable tasks; each ends with yarn verify green"
+    - "Include a test task per touched module and a fixtures task if there are new rules"
+    - "Do not mix tooling scaffold with features in the same task"
+    - "Last task: update README and affected specs"
